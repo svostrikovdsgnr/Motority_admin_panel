@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motority Brand Admin — BMW</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#09090b;--surface:#111113;--surface2:#18181b;--surface3:#27272a;
+  --border:#27272a;--border2:#3f3f46;--text:#fafafa;--text-2:#a1a1aa;--text-3:#71717a;
+  --accent:#3b82f6;--accent-light:#60a5fa;--accent-bg:rgba(59,130,246,0.12);
+  --green:#22c55e;--green-bg:rgba(34,197,94,0.12);--yellow:#eab308;--yellow-bg:rgba(234,179,8,0.12);
+  --red:#ef4444;--red-bg:rgba(239,68,68,0.12);
+  --sidebar-w:240px;--topbar-h:56px;--radius:10px;--radius-sm:7px;
+  --shadow:0 1px 3px rgba(0,0,0,.4);
+}
+:root.light{
+  --bg:#f4f4f5;--surface:#ffffff;--surface2:#f4f4f5;--surface3:#e4e4e7;
+  --border:#e4e4e7;--border2:#d4d4d8;--text:#09090b;--text-2:#52525b;--text-3:#a1a1aa;
+  --accent:#2563eb;--accent-light:#1d4ed8;--accent-bg:rgba(37,99,235,0.08);
+  --green:#16a34a;--green-bg:rgba(22,163,74,0.1);--yellow:#ca8a04;--yellow-bg:rgba(202,138,4,0.1);
+  --red:#dc2626;--red-bg:rgba(220,38,38,0.08);
+  --shadow:0 1px 4px rgba(0,0,0,.08);
+}
+*,body,#sidebar,#topbar,#content,.section-card,.stat-card,.modal,.modal-header,.modal-footer,input,textarea,select,.upload-zone,.toggle,.chip,.btn,.sb-item,.notify-item,.font-option,.media-card,.color-swatch,.tab,.badge{transition:background .22s ease,border-color .22s ease,color .22s ease,box-shadow .22s ease;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;overflow:hidden}
+#sidebar{width:var(--sidebar-w);min-width:var(--sidebar-w);height:100vh;background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;position:fixed;left:0;top:0;z-index:100}
+.sb-logo{padding:16px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;height:var(--topbar-h)}
+.sb-logo-icon{width:28px;height:28px;border-radius:7px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff}
+.sb-brand{font-size:14px;font-weight:600;color:var(--text)}
+.sb-brand span{color:var(--text-2);font-weight:400}
+.sb-nav{flex:1;padding:10px 8px;overflow-y:auto}
+.sb-section{font-size:10px;font-weight:600;color:var(--text-3);letter-spacing:.08em;text-transform:uppercase;padding:12px 12px 6px}
+.sb-item{display:flex;align-items:center;gap:10px;padding:8px 12px;border-radius:var(--radius-sm);cursor:pointer;transition:all .15s;font-size:13.5px;font-weight:500;color:var(--text-2);margin-bottom:1px}
+.sb-item:hover{background:var(--surface2);color:var(--text)}
+.sb-item.active{background:var(--accent-bg);color:var(--accent-light)}
+.sb-item .n-badge{margin-left:auto;font-size:11px;font-weight:700;padding:1px 7px;border-radius:20px;background:var(--red-bg);color:var(--red)}
+.sb-icon{width:16px;height:16px;flex-shrink:0;opacity:.8}
+.sb-item.active .sb-icon{opacity:1}
+.sb-bottom{padding:12px;border-top:1px solid var(--border)}
+.sb-user{display:flex;align-items:center;gap:10px;padding:8px;border-radius:var(--radius-sm);cursor:pointer}
+.sb-user:hover{background:var(--surface2)}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#fff;flex-shrink:0}
+.avatar.sm{width:26px;height:26px;font-size:10px}
+.sb-user-name{font-size:13px;font-weight:600;color:var(--text)}
+.sb-user-role{font-size:11px;color:var(--text-3)}
+#main{margin-left:var(--sidebar-w);flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+#topbar{height:var(--topbar-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 24px;gap:16px;flex-shrink:0}
+.topbar-title{font-size:15px;font-weight:600;color:var(--text)}
+.topbar-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.live-badge{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:var(--radius-sm);background:var(--green-bg);font-size:12px;font-weight:600;color:var(--green)}
+.live-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green)}
+.btn-icon{width:32px;height:32px;border-radius:var(--radius-sm);border:1px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-2);transition:all .15s}
+.btn-icon:hover{background:var(--surface2);color:var(--text);border-color:var(--border2)}
+#content{flex:1;overflow-y:auto;padding:24px}
+.view{display:none}.view.active{display:block}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
+.stat-label{font-size:12px;color:var(--text-3);font-weight:500;margin-bottom:8px}
+.stat-value{font-size:28px;font-weight:700;color:var(--text);font-family:'DM Mono',monospace}
+.stat-sub{font-size:12px;color:var(--text-3);margin-top:4px}
+.section-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:16px;box-shadow:var(--shadow)}
+.section-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
+.section-title{font-size:14px;font-weight:600;color:var(--text)}
+.section-sub{font-size:12px;color:var(--text-3);margin-top:2px}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;padding:10px 20px;border-bottom:1px solid var(--border)}
+td{padding:12px 20px;font-size:13.5px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--surface2)}
+.badge{display:inline-flex;align-items:center;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600}
+.badge-blue{background:var(--accent-bg);color:var(--accent-light)}
+.badge-green{background:var(--green-bg);color:var(--green)}
+.badge-yellow{background:var(--yellow-bg);color:var(--yellow)}
+.badge-red{background:var(--red-bg);color:var(--red)}
+.badge-gray{background:var(--surface3);color:var(--text-2)}
+.cell-model{display:flex;align-items:center;gap:10px}
+.cell-img-ph{width:40px;height:28px;border-radius:5px;background:var(--surface3);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:14px}
+.cell-name{font-size:13.5px;font-weight:600;color:var(--text)}
+.cell-meta{font-size:11px;color:var(--text-3)}
+.actions{display:flex;gap:6px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;transition:all .15s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-light)}
+.btn-sm{padding:5px 11px;font-size:12px}
+.btn-ghost{background:transparent;color:var(--text-2);border:1px solid var(--border)}.btn-ghost:hover{background:var(--surface2);color:var(--text);border-color:var(--border2)}
+.btn-danger{background:var(--red-bg);color:var(--red);border:1px solid rgba(239,68,68,.2)}.btn-danger:hover{background:rgba(239,68,68,.2)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:20px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+label{font-size:12px;font-weight:600;color:var(--text-2)}
+input[type=text],input[type=email],input[type=url],textarea,select{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13.5px;padding:8px 12px;outline:none;transition:border .15s;width:100%}
+input:focus,textarea:focus,select:focus{border-color:var(--accent)}
+textarea{resize:vertical;min-height:80px}
+select option{background:var(--surface2)}
+.toggle-group{display:flex;align-items:center;gap:10px}
+.toggle{width:36px;height:20px;border-radius:20px;background:var(--surface3);border:1px solid var(--border2);position:relative;cursor:pointer;transition:background .2s;flex-shrink:0}
+.toggle.on{background:var(--accent)}
+.toggle::after{content:'';position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;background:#fff;transition:transform .2s}
+.toggle.on::after{transform:translateX(16px)}
+.upload-zone{border:2px dashed var(--border2);border-radius:var(--radius);padding:32px;text-align:center;cursor:pointer;transition:all .15s}
+.upload-zone:hover{border-color:var(--accent);background:var(--accent-bg)}
+.upload-icon{font-size:28px;margin-bottom:8px}
+.upload-text{font-size:13px;color:var(--text-2)}
+.upload-hint{font-size:11px;color:var(--text-3);margin-top:4px}
+.hero-type-switcher{display:flex;gap:8px;padding:20px}
+.hero-type-btn{padding:8px 20px;border-radius:var(--radius-sm);border:1px solid var(--border);background:transparent;color:var(--text-2);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.hero-type-btn.active{background:var(--accent-bg);color:var(--accent-light);border-color:var(--accent)}
+.split-view{display:grid;grid-template-columns:1fr 320px;gap:16px}
+.preview-frame{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden}
+.preview-label{font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.08em;padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.preview-dot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.preview-body{padding:16px}
+.mini-landing{border-radius:8px;overflow:hidden;background:#000}
+.mini-hero{height:100px;background:linear-gradient(135deg,#0a0a1a,#1a1a3e,#0f2460);display:flex;align-items:flex-end;padding:12px;position:relative}
+.mini-hero-text{font-size:7px;font-weight:800;color:#fff;line-height:1.4;letter-spacing:.5px}
+.mini-models{padding:8px 10px}
+.mini-model-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin-top:6px}
+.mini-model-card{background:#1a1a1a;border-radius:3px;overflow:hidden}
+.mini-model-img{height:24px;background:linear-gradient(135deg,#1e3a5f,#2d6a4f);display:flex;align-items:center;justify-content:center;font-size:5px;color:rgba(255,255,255,.4);font-weight:700}
+.mini-model-info{padding:3px 4px}
+.mini-model-name{font-size:5px;font-weight:700;color:#fff}
+.mini-model-year{font-size:4px;color:#888}
+.notify-item{display:flex;align-items:flex-start;gap:12px;padding:14px 20px;border-bottom:1px solid var(--border);cursor:pointer}
+.notify-item:last-child{border-bottom:none}
+.notify-item:hover{background:var(--surface2)}
+.notify-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);flex-shrink:0;margin-top:5px}
+.notify-dot.read{background:var(--surface3)}
+.notify-text{font-size:13px;color:var(--text);line-height:1.5}
+.notify-meta{font-size:11px;color:var(--text-3);margin-top:3px}
+.tabs{display:flex;gap:2px;padding:16px 20px 0;border-bottom:1px solid var(--border)}
+.tab{padding:8px 16px;font-size:13px;font-weight:600;color:var(--text-3);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s}
+.tab:hover{color:var(--text)}.tab.active{color:var(--accent-light);border-bottom-color:var(--accent)}
+.chip{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--border);background:transparent;cursor:pointer;color:var(--text-2);transition:all .15s;display:inline-block}
+.chip:hover{border-color:var(--border2);color:var(--text)}.chip.active{background:var(--accent-bg);border-color:var(--accent);color:var(--accent-light)}
+.media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;padding:20px}
+.media-card{border-radius:var(--radius-sm);overflow:hidden;background:var(--surface2);border:1px solid var(--border);cursor:pointer;transition:all .15s}
+.media-card:hover{border-color:var(--border2);transform:translateY(-1px)}
+.media-thumb{height:80px;display:flex;align-items:center;justify-content:center;font-size:22px}
+.media-info{padding:8px 10px}
+.media-name{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.media-size{font-size:11px;color:var(--text-3)}
+.color-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:20px}
+.color-swatch-wrap{display:flex;flex-direction:column;gap:6px}
+.color-swatch{width:100%;height:48px;border-radius:var(--radius-sm);border:1px solid var(--border);cursor:pointer;transition:transform .1s}
+.color-swatch:hover{transform:scale(1.04)}
+.color-label{font-size:11px;color:var(--text-2);font-weight:500}
+.font-option{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--border);cursor:pointer}
+.font-option:hover{background:var(--surface2)}.font-option.selected{background:var(--accent-bg)}
+.font-preview{font-size:20px;font-weight:700;color:var(--text);width:100px}
+.font-meta{font-size:12px;color:var(--text-3)}
+.restore-btn{color:var(--accent);font-size:12px;font-weight:600;cursor:pointer;background:none;border:none;font-family:'DM Sans',sans-serif}
+.restore-btn:hover{text-decoration:underline}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);backdrop-filter:blur(4px);z-index:1000;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .2s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:14px;width:540px;max-height:82vh;overflow-y:auto;transform:scale(.96);transition:transform .2s}
+.modal-overlay.open .modal{transform:scale(1)}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:var(--surface);z-index:1}
+.modal-title{font-size:16px;font-weight:700;color:var(--text)}
+.modal-close{background:none;border:none;color:var(--text-3);font-size:20px;cursor:pointer;padding:4px;border-radius:5px;width:32px;height:32px;display:flex;align-items:center;justify-content:center}
+.modal-close:hover{background:var(--surface2);color:var(--text)}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;position:sticky;bottom:0;background:var(--surface)}
+#toast{position:fixed;bottom:24px;right:24px;z-index:2000;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius);padding:12px 18px;font-size:13px;font-weight:600;color:var(--text);display:flex;align-items:center;gap:8px;transform:translateY(80px);opacity:0;transition:all .3s;box-shadow:0 8px 32px rgba(0,0,0,.6)}
+#toast.show{transform:translateY(0);opacity:1}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:20px}
+
+/* THEME SWITCHER */
+.theme-switcher{padding:0 4px 10px;cursor:pointer}
+.theme-switcher-track{
+  display:flex;position:relative;background:var(--surface3);
+  border-radius:8px;padding:3px;gap:0;border:1px solid var(--border);
+}
+.theme-option{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:5px;
+  font-size:12px;font-weight:600;color:var(--text-3);padding:6px 4px;
+  border-radius:6px;position:relative;z-index:1;user-select:none;
+  transition:color .2s;
+}
+.theme-option.active-opt{color:var(--text)}
+.theme-pill{
+  position:absolute;top:3px;left:3px;
+  width:calc(50% - 3px);height:calc(100% - 6px);
+  background:var(--surface);border-radius:6px;
+  box-shadow:0 1px 4px rgba(0,0,0,.2);
+  transition:transform .25s cubic-bezier(.4,0,.2,1),background .22s;
+  pointer-events:none;
+}
+.light .theme-pill{box-shadow:0 1px 6px rgba(0,0,0,.12)}
+body.is-light .theme-pill{transform:translateX(100%)}
+</style>
+</head>
+<body>
+
+<nav id="sidebar">
+  <div class="sb-logo">
+    <div class="sb-logo-icon">M</div>
+    <div><div class="sb-brand">Motority <span>Admin</span></div></div>
+  </div>
+  <div class="sb-nav">
+    <div class="sb-item active" onclick="nav('dashboard')">
+      <svg class="sb-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard
+    </div>
+    <div class="sb-section">Content</div>
+    <div class="sb-item" onclick="nav('landing')">
+      <svg class="sb-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>Landing Page
+    </div>
+    <div class="sb-item" onclick="nav('catalog')">
+      <svg class="sb-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>Cars Catalog
+    </div>
+    <div class="sb-item" onclick="nav('media')">
+      <svg class="sb-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>Media Library
+    </div>
+    <div class="sb-section">Brand</div>
+    <div class="sb-item" onclick="nav('style')">
+      <svg class="sb-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 000 20M12 2a14.5 14.5 0 010 20M2 12h20"/></svg>Brand Style
+    </div>
+    <div class="sb-item" onclick="nav('community')">
+      <svg class="sb-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>Community
+    </div>
+    <div class="sb-section">Admin</div>
+    <div class="sb-item" onclick="nav('users')">
+      <svg class="sb-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Users &amp; Roles
+    </div>
+    <div class="sb-item" onclick="nav('notifications')">
+      <svg class="sb-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>Notifications<span class="n-badge">3</span>
+    </div>
+    <div class="sb-item" onclick="nav('history')">
+      <svg class="sb-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Version History
+    </div>
+    <div class="sb-item" onclick="nav('settings')">
+      <svg class="sb-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>Settings
+    </div>
+  </div>
+  <div class="sb-bottom">
+    <div class="theme-switcher" id="theme-switcher" onclick="toggleTheme()">
+      <div class="theme-switcher-track">
+        <div class="theme-option" id="theme-dark">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+          Dark
+        </div>
+        <div class="theme-option" id="theme-light">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          Light
+        </div>
+        <div class="theme-pill" id="theme-pill"></div>
+      </div>
+    </div>
+    <div class="sb-user">
+      <div class="avatar">AK</div>
+      <div><div class="sb-user-name">Anna Kowalski</div><div class="sb-user-role">Super Admin</div></div>
+    </div>
+  </div>
+</nav>
+
+<div id="main">
+  <div id="topbar">
+    <div class="topbar-title" id="topbar-title">Dashboard</div>
+    <div class="topbar-right">
+      <div class="live-badge">Live</div>
+      <button class="btn-icon" onclick="nav('notifications')" title="Notifications">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+      </button>
+      <button class="btn-icon" onclick="showToast('🔗 bmw.motority.com opened')" title="View landing">
+        <svg width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="content">
+
+    <!-- DASHBOARD -->
+    <div class="view active" id="v-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Models on Landing</div><div class="stat-value">47</div><div class="stat-sub">Across 8 series</div></div>
+        <div class="stat-card"><div class="stat-label">Generations</div><div class="stat-value">134</div><div class="stat-sub">+3 this month</div></div>
+        <div class="stat-card"><div class="stat-label">Community Logbooks</div><div class="stat-value">2,841</div><div class="stat-sub">BMW owners on Motority</div></div>
+        <div class="stat-card"><div class="stat-label">Pending Notifications</div><div class="stat-value" style="color:var(--yellow)">3</div><div class="stat-sub">Require attention</div></div>
+      </div>
+      <div class="section-card">
+        <div class="section-header">
+          <div><div class="section-title">Recent Activity</div><div class="section-sub">Latest changes by editors</div></div>
+          <button class="btn btn-ghost btn-sm" onclick="nav('history')">View All</button>
+        </div>
+        <table>
+          <thead><tr><th>Editor</th><th>Action</th><th>Object</th><th>Time</th></tr></thead>
+          <tbody>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm">AK</div>Anna K.</div></td><td>Edited description</td><td><span class="badge badge-blue">BMW M4</span></td><td style="color:var(--text-3)">2h ago</td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm" style="background:var(--green)">MR</div>Max R.</div></td><td>Uploaded hero image</td><td><span class="badge badge-gray">Hero Block</span></td><td style="color:var(--text-3)">5h ago</td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm" style="background:#8b5cf6">YT</div>Yuki T.</div></td><td>Added generation</td><td><span class="badge badge-blue">BMW X5 G05</span></td><td style="color:var(--text-3)">Yesterday</td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm">AK</div>Anna K.</div></td><td>Changed brand color</td><td><span class="badge badge-gray">Brand Style</span></td><td style="color:var(--text-3)">2 days ago</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="section-card">
+        <div class="section-header"><div class="section-title">Notifications</div><span class="badge badge-yellow">3 new</span></div>
+        <div class="notify-item" onclick="nav('notifications')"><div class="notify-dot"></div><div><div class="notify-text">New model <strong>BMW M2 G87</strong> added by catalog team — review and add images</div><div class="notify-meta">2 hours ago · Cars Catalog</div></div></div>
+        <div class="notify-item" onclick="nav('notifications')"><div class="notify-dot"></div><div><div class="notify-text">New generation <strong>BMW 3 Series G20 LCI</strong> added — upload brand images</div><div class="notify-meta">1 day ago · Cars Catalog</div></div></div>
+        <div class="notify-item" onclick="nav('notifications')"><div class="notify-dot"></div><div><div class="notify-text">47 new community logbooks created this week for BMW models</div><div class="notify-meta">3 days ago · Community</div></div></div>
+      </div>
+    </div>
+
+    <!-- LANDING -->
+    <div class="view" id="v-landing">
+      <div class="split-view">
+        <div>
+          <div class="section-card">
+            <div class="section-header">
+              <div><div class="section-title">Hero Block</div><div class="section-sub">Top visual of the landing page</div></div>
+              <button class="btn btn-primary btn-sm" onclick="showToast('✅ Hero block saved')">Save Changes</button>
+            </div>
+            <div class="hero-type-switcher">
+              <button class="hero-type-btn active" id="hero-img-btn" onclick="switchHero('image')">📷 Image</button>
+              <button class="hero-type-btn" id="hero-vid-btn" onclick="switchHero('video')">🎬 Video</button>
+            </div>
+            <div id="hero-image-fields">
+              <div class="form-grid">
+                <div class="form-group full"><label>Hero Image</label><div class="upload-zone" onclick="showToast('📁 File picker opened')"><div class="upload-icon">🖼️</div><div class="upload-text">Drop image or click to upload</div><div class="upload-hint">Recommended: 1600×900px, JPG/WebP, max 5MB</div></div></div>
+                <div class="form-group"><label>Headline</label><input type="text" value="The Ultimate Driving Machine"></div>
+                <div class="form-group"><label>Subheadline</label><input type="text" value="Over a century of precision engineering."></div>
+                <div class="form-group"><label>CTA Button Text</label><input type="text" value="Explore Models"></div>
+                <div class="form-group"><label>CTA Link</label><input type="url" value="https://bmw.motority.com/models"></div>
+              </div>
+            </div>
+            <div id="hero-video-fields" style="display:none">
+              <div class="form-grid">
+                <div class="form-group full"><label>Video URL</label><input type="url" placeholder="https://youtube.com/watch?v=..."></div>
+                <div class="form-group full"><label>Preview Image</label><div class="upload-zone" onclick="showToast('📁 File picker opened')"><div class="upload-icon">🖼️</div><div class="upload-text">Upload preview thumbnail</div></div></div>
+                <div class="form-group"><label>Headline</label><input type="text" placeholder="Enter headline"></div>
+                <div class="form-group"><label>Subheadline</label><input type="text" placeholder="Enter subheadline"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header">
+              <div><div class="section-title">Filters Configuration</div><div class="section-sub">Visible filters on the models section</div></div>
+              <button class="btn btn-primary btn-sm" onclick="showToast('✅ Filters saved')">Save</button>
+            </div>
+            <div style="padding:20px;display:flex;flex-direction:column;gap:16px">
+              <div class="form-group"><div class="toggle-group"><div class="toggle on" onclick="this.classList.toggle('on')"></div><label>Decades filter (1960s, 1970s … 2020s)</label></div></div>
+              <div class="form-group"><label style="margin-bottom:8px;display:block">Body Types</label><div style="display:flex;flex-wrap:wrap;gap:8px"><span class="chip active" onclick="this.classList.toggle('active')">Compact</span><span class="chip active" onclick="this.classList.toggle('active')">Convertible</span><span class="chip active" onclick="this.classList.toggle('active')">Coupe</span><span class="chip active" onclick="this.classList.toggle('active')">Roadster</span><span class="chip active" onclick="this.classList.toggle('active')">SAV</span><span class="chip active" onclick="this.classList.toggle('active')">Sedan</span><span class="chip active" onclick="this.classList.toggle('active')">Touring</span><span class="chip" onclick="this.classList.toggle('active')">Hatchback</span></div></div>
+              <div class="form-group"><label style="margin-bottom:8px;display:block">Power Types</label><div style="display:flex;flex-wrap:wrap;gap:8px"><span class="chip active" onclick="this.classList.toggle('active')">Electric</span><span class="chip active" onclick="this.classList.toggle('active')">Hybrid</span><span class="chip active" onclick="this.classList.toggle('active')">Combustion</span></div></div>
+            </div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header">
+              <div><div class="section-title">Models on Landing</div><div class="section-sub">47 models visible</div></div>
+              <div class="actions">
+                <button class="btn btn-ghost btn-sm" onclick="nav('catalog')">Manage in Catalog</button>
+                <button class="btn btn-primary btn-sm" onclick="openModal('add-model')">+ Add Model</button>
+              </div>
+            </div>
+            <table>
+              <thead><tr><th>Model</th><th>Generations</th><th>Logbooks</th><th>Visible</th><th>Actions</th></tr></thead>
+              <tbody>
+                <tr><td><div class="cell-model"><div class="cell-img-ph">🚗</div><div><div class="cell-name">BMW M4</div><div class="cell-meta">Coupe / M Division</div></div></div></td><td>3</td><td><span class="badge badge-green">284</span></td><td><div class="toggle on" onclick="this.classList.toggle('on');showToast('👁️ Visibility updated')"></div></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="nav('catalog')">Edit</button><button class="btn btn-danger btn-sm" onclick="showToast('Hidden from landing')">Hide</button></div></td></tr>
+                <tr><td><div class="cell-model"><div class="cell-img-ph">🚗</div><div><div class="cell-name">BMW M3</div><div class="cell-meta">Sedan / M Division</div></div></div></td><td>6</td><td><span class="badge badge-green">412</span></td><td><div class="toggle on" onclick="this.classList.toggle('on');showToast('👁️ Visibility updated')"></div></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="nav('catalog')">Edit</button><button class="btn btn-danger btn-sm" onclick="showToast('Hidden from landing')">Hide</button></div></td></tr>
+                <tr><td><div class="cell-model"><div class="cell-img-ph">🚙</div><div><div class="cell-name">BMW X5</div><div class="cell-meta">SAV</div></div></div></td><td>4</td><td><span class="badge badge-green">634</span></td><td><div class="toggle on" onclick="this.classList.toggle('on');showToast('👁️ Visibility updated')"></div></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="nav('catalog')">Edit</button><button class="btn btn-danger btn-sm" onclick="showToast('Hidden from landing')">Hide</button></div></td></tr>
+                <tr><td><div class="cell-model"><div class="cell-img-ph">⚡</div><div><div class="cell-name">BMW iX</div><div class="cell-meta">SAV / Electric</div></div></div></td><td>1</td><td><span class="badge badge-yellow">47</span></td><td><div class="toggle" onclick="this.classList.toggle('on');showToast('👁️ Visibility updated')"></div></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="nav('catalog')">Edit</button><button class="btn btn-danger btn-sm" onclick="showToast('Hidden from landing')">Hide</button></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div>
+          <div class="preview-frame" style="position:sticky;top:0">
+            <div class="preview-label"><div class="preview-dot"></div>Live Preview — bmw.motority.com</div>
+            <div class="preview-body">
+              <div class="mini-landing">
+                <div class="mini-hero"><div class="mini-hero-text">THE ULTIMATE<br>DRIVING MACHINE<br><span style="font-weight:400;font-size:5px;opacity:.7">Over a century of precision engineering</span></div></div>
+                <div class="mini-models">
+                  <div style="font-size:6px;font-weight:700;color:#fff;margin-bottom:5px">MODELS</div>
+                  <div style="display:flex;gap:3px;margin-bottom:7px">
+                    <div style="font-size:5px;padding:2px 5px;border-radius:8px;background:#1e3a5f;color:#60a5fa">All</div>
+                    <div style="font-size:5px;padding:2px 5px;border-radius:8px;border:1px solid #333;color:#888">Coupe</div>
+                    <div style="font-size:5px;padding:2px 5px;border-radius:8px;border:1px solid #333;color:#888">Sedan</div>
+                  </div>
+                  <div class="mini-model-grid">
+                    <div class="mini-model-card"><div class="mini-model-img">M4</div><div class="mini-model-info"><div class="mini-model-name">BMW M4</div><div class="mini-model-year">2021–Present</div></div></div>
+                    <div class="mini-model-card"><div class="mini-model-img">M3</div><div class="mini-model-info"><div class="mini-model-name">BMW M3</div><div class="mini-model-year">2020–Present</div></div></div>
+                    <div class="mini-model-card"><div class="mini-model-img">X5</div><div class="mini-model-info"><div class="mini-model-name">BMW X5</div><div class="mini-model-year">2018–Present</div></div></div>
+                  </div>
+                </div>
+                <div style="padding:6px 10px;border-top:1px solid #1a1a1a">
+                  <div style="font-size:5px;font-weight:700;color:#fff;margin-bottom:4px">REAL OWNERS</div>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px">
+                    <div style="background:#111;border-radius:3px;height:22px;padding:3px;display:flex;align-items:flex-end"><div style="font-size:4px;color:#aaa">BMW M4 Competition</div></div>
+                    <div style="background:#111;border-radius:3px;height:22px;padding:3px;display:flex;align-items:flex-end"><div style="font-size:4px;color:#aaa">BMW X5 G05</div></div>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:10px;padding:8px 10px;background:var(--surface2);border-radius:6px;font-size:10px;color:var(--text-3)">
+                Changes apply after Save ↑
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CATALOG -->
+    <div class="view" id="v-catalog">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius)">
+        <div class="tabs" id="catalog-tabs" style="padding:16px 20px 0">
+          <div class="tab active" onclick="switchCatalogTab('models')">Models</div>
+          <div class="tab" onclick="switchCatalogTab('gen')">Generations</div>
+        </div>
+        <div id="catalog-models">
+          <div class="section-header" style="border-top:1px solid var(--border)">
+            <div><div class="section-title">BMW Models</div><div class="section-sub">47 models · 134 generations total</div></div>
+            <button class="btn btn-primary btn-sm" onclick="openModal('add-model')">+ Add Model</button>
+          </div>
+          <table>
+            <thead><tr><th>Model Name</th><th>Years</th><th>Generations</th><th>Logbooks</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr style="cursor:pointer" onclick="openModelEditor('BMW M4')"><td><div class="cell-name">BMW M4</div></td><td style="color:var(--text-3)">2014 – Present</td><td>3</td><td><span class="badge badge-green">284</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModal('add-model')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW M4 deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelEditor('BMW M3')"><td><div class="cell-name">BMW M3</div></td><td style="color:var(--text-3)">1986 – Present</td><td>6</td><td><span class="badge badge-green">412</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModal('add-model')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW M3 deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelEditor('BMW X5')"><td><div class="cell-name">BMW X5</div></td><td style="color:var(--text-3)">1999 – Present</td><td>4</td><td><span class="badge badge-green">634</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModal('add-model')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW X5 deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelEditor('BMW 3 Series')"><td><div class="cell-name">BMW 3 Series</div></td><td style="color:var(--text-3)">1975 – Present</td><td>8</td><td><span class="badge badge-green">1,204</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModal('add-model')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW 3 Series deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelEditor('BMW iX')"><td><div class="cell-name">BMW iX</div></td><td style="color:var(--text-3)">2021 – Present</td><td>1</td><td><span class="badge badge-yellow">47</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModal('add-model')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW iX deleted')">Delete</button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="catalog-gen" style="display:none">
+          <div class="section-header" style="border-top:1px solid var(--border)">
+            <div><div class="section-title">BMW M4 — Generations</div></div>
+            <button class="btn btn-primary btn-sm" onclick="openModal('add-gen')">+ Add Generation</button>
+          </div>
+          <table>
+            <thead><tr><th>Generation</th><th>Years</th><th>Logbooks</th><th>Actions</th></tr></thead>
+            <tbody>
+              <tr><td><div class="cell-name">BMW M4 G82</div></td><td style="color:var(--text-3)">2020 – Present</td><td><span class="badge badge-green">147</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="openModal('edit-gen')">Edit</button><button class="btn btn-danger btn-sm" onclick="showToast('🗑️ Generation deleted')">Delete</button></div></td></tr>
+              <tr><td><div class="cell-name">BMW M4 F82</div></td><td style="color:var(--text-3)">2014 – 2020</td><td><span class="badge badge-green">98</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="openModal('edit-gen')">Edit</button><button class="btn btn-danger btn-sm" onclick="showToast('🗑️ Generation deleted')">Delete</button></div></td></tr>
+              <tr><td><div class="cell-name">BMW M4 CS (G82)</div></td><td style="color:var(--text-3)">2022 – Present</td><td><span class="badge badge-yellow">39</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="openModal('edit-gen')">Edit</button><button class="btn btn-danger btn-sm" onclick="showToast('🗑️ Generation deleted')">Delete</button></div></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- MEDIA -->
+    <div class="view" id="v-media">
+      <div class="section-card">
+        <div class="section-header">
+          <div><div class="section-title">Media Library</div><div class="section-sub">Brand assets — images, videos, logos</div></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('📁 Upload dialog opened')">+ Upload</button>
+        </div>
+        <div style="display:flex;gap:8px;padding:16px 20px 0">
+          <span class="chip active" onclick="this.classList.toggle('active')">All</span>
+          <span class="chip" onclick="this.classList.toggle('active')">Images</span>
+          <span class="chip" onclick="this.classList.toggle('active')">Videos</span>
+          <span class="chip" onclick="this.classList.toggle('active')">Logos</span>
+        </div>
+        <div class="media-grid">
+          <div class="media-card" onclick="showToast('🖼️ hero-main.jpg selected')"><div class="media-thumb" style="background:linear-gradient(135deg,#1e3a5f,#0f3460)">🏎️</div><div class="media-info"><div class="media-name">hero-main.jpg</div><div class="media-size">2.4 MB · 1600×900</div></div></div>
+          <div class="media-card" onclick="showToast('🖼️ m4-front.jpg selected')"><div class="media-thumb" style="background:linear-gradient(135deg,#2d3748,#1a202c)">🚗</div><div class="media-info"><div class="media-name">m4-front.jpg</div><div class="media-size">1.1 MB · 800×533</div></div></div>
+          <div class="media-card" onclick="showToast('🖼️ m3-studio.jpg selected')"><div class="media-thumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">🚗</div><div class="media-info"><div class="media-name">m3-studio.jpg</div><div class="media-size">0.9 MB · 800×533</div></div></div>
+          <div class="media-card" onclick="showToast('🎬 brand-video.mp4 selected')"><div class="media-thumb" style="background:linear-gradient(135deg,#1e3c72,#2a5298)">🎬</div><div class="media-info"><div class="media-name">brand-video.mp4</div><div class="media-size">48.3 MB</div></div></div>
+          <div class="media-card" onclick="showToast('🖼️ bmw-logo.svg selected')"><div class="media-thumb" style="background:#f1f5f9">🔵</div><div class="media-info"><div class="media-name">bmw-logo.svg</div><div class="media-size">12 KB · Vector</div></div></div>
+          <div class="media-card" onclick="showToast('🖼️ x5-road.jpg selected')"><div class="media-thumb" style="background:linear-gradient(135deg,#2d6a4f,#1b4332)">🚙</div><div class="media-info"><div class="media-name">x5-road.jpg</div><div class="media-size">1.8 MB · 1200×800</div></div></div>
+          <div class="media-card" style="border:2px dashed var(--border2)" onclick="showToast('📁 Upload dialog opened')"><div class="media-thumb" style="background:transparent;color:var(--text-3);font-size:28px">+</div><div class="media-info"><div class="media-name" style="color:var(--text-3)">Upload new</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- STYLE -->
+    <div class="view" id="v-style">
+      <div class="section-card" style="margin-bottom:16px">
+        <div class="section-header">
+          <div><div class="section-title">Brand Colors</div><div class="section-sub">Used across the landing page UI</div></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ Brand colors saved')">Save</button>
+        </div>
+        <div class="color-grid">
+          <div class="color-swatch-wrap"><div class="color-swatch" style="background:#1c69d4" onclick="showToast('🎨 Color picker — Primary')"></div><div class="color-label">Primary<br><span style="font-family:DM Mono,monospace;font-size:10px">#1C69D4</span></div></div>
+          <div class="color-swatch-wrap"><div class="color-swatch" style="background:#000000" onclick="showToast('🎨 Color picker — Background')"></div><div class="color-label">Background<br><span style="font-family:DM Mono,monospace;font-size:10px">#000000</span></div></div>
+          <div class="color-swatch-wrap"><div class="color-swatch" style="background:#ffffff" onclick="showToast('🎨 Color picker — Text')"></div><div class="color-label">Text<br><span style="font-family:DM Mono,monospace;font-size:10px">#FFFFFF</span></div></div>
+          <div class="color-swatch-wrap"><div class="color-swatch" style="background:#6f6f6f" onclick="showToast('🎨 Color picker — Secondary')"></div><div class="color-label">Secondary<br><span style="font-family:DM Mono,monospace;font-size:10px">#6F6F6F</span></div></div>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="section-header">
+          <div><div class="section-title">Typography</div><div class="section-sub">Brand font selection</div></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ Font saved')">Save</button>
+        </div>
+        <div class="font-option selected" onclick="showToast('✅ BMW Type Next selected')">
+          <div class="font-preview">Aa</div>
+          <div><div style="font-size:13px;font-weight:600;color:var(--text)">BMW Type Next</div><div class="font-meta">Brand font · Uploaded</div></div>
+          <span class="badge badge-blue" style="margin-left:auto">Selected</span>
+        </div>
+        <div class="font-option" onclick="showToast('✅ Helvetica Neue selected')">
+          <div class="font-preview" style="font-family:Helvetica,Arial,sans-serif">Aa</div>
+          <div><div style="font-size:13px;font-weight:600;color:var(--text)">Helvetica Neue</div><div class="font-meta">System font</div></div>
+        </div>
+        <div class="font-option" onclick="showToast('📁 Font upload — .woff, .woff2, .ttf')">
+          <div class="font-preview" style="color:var(--text-3)">+</div>
+          <div><div style="font-size:13px;font-weight:600;color:var(--text-3)">Upload custom font</div><div class="font-meta">.woff, .woff2, .ttf</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMMUNITY -->
+    <div class="view" id="v-community">
+      <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat-card"><div class="stat-label">Total Logbooks</div><div class="stat-value">2,841</div></div>
+        <div class="stat-card"><div class="stat-label">Active Owners</div><div class="stat-value">1,203</div></div>
+        <div class="stat-card"><div class="stat-label">New This Month</div><div class="stat-value" style="color:var(--green)">+47</div></div>
+      </div>
+      <div class="section-card" style="margin-bottom:16px">
+        <div class="section-header">
+          <div class="section-title">Community Block Settings</div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ Community settings saved')">Save</button>
+        </div>
+        <div style="padding:20px;display:flex;flex-direction:column;gap:16px">
+          <div class="toggle-group"><div class="toggle on" onclick="this.classList.toggle('on')"></div><label>Show Community block on landing</label></div>
+          <div class="form-group"><label>Section Title</label><input type="text" value="Real Owners"></div>
+          <div class="form-group"><label>Section Subtitle</label><input type="text" value="BMW owners documenting their journeys on Motority"></div>
+          <div class="form-group"><label>Max logbooks to show</label><select><option>4</option><option>6</option><option>8</option><option>12</option></select></div>
+        </div>
+      </div>
+      <div class="section-card">
+        <div class="section-header"><div class="section-title">Recent Logbooks</div><div class="section-sub">Latest from BMW owners</div></div>
+        <table>
+          <thead><tr><th>Owner</th><th>Car</th><th>Mileage</th><th>Owned</th><th>Date</th></tr></thead>
+          <tbody>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm">SV</div>Sergei V.</div></td><td>BMW M4 Competition G82</td><td>20,500 km</td><td>2 years</td><td style="color:var(--text-3)">Apr 5</td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm" style="background:#8b5cf6">MK</div>Maria K.</div></td><td>BMW X5 G05</td><td>34,200 km</td><td>3 years</td><td style="color:var(--text-3)">Apr 3</td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm" style="background:var(--green)">JP</div>James P.</div></td><td>BMW M3 G80</td><td>8,100 km</td><td>1 year</td><td style="color:var(--text-3)">Apr 1</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- USERS -->
+    <div class="view" id="v-users">
+      <div class="section-card">
+        <div class="section-header">
+          <div><div class="section-title">Users &amp; Roles</div><div class="section-sub">4 of 10 users · You are Super Admin</div></div>
+          <button class="btn btn-primary btn-sm" onclick="openModal('invite-user')">+ Invite User</button>
+        </div>
+        <table>
+          <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Last Login</th><th>Actions</th></tr></thead>
+          <tbody>
+            <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar">AK</div><div class="cell-name">Anna Kowalski</div></div></td><td style="color:var(--text-2)"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="45242b2b240527283268282a312a372c313c6b262a28">[email&#160;protected]</a></td><td><span class="badge badge-blue">Super Admin</span></td><td style="color:var(--text-3)">Just now</td><td><span style="color:var(--text-3);font-size:12px">You</span></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="background:var(--green)">MR</div><div class="cell-name">Max Richter</div></div></td><td style="color:var(--text-2)"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e8858990c69aa88a859fc585879c879a819c91c68b8785">[email&#160;protected]</a></td><td><span class="badge badge-gray">Admin</span></td><td style="color:var(--text-3)">3h ago</td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="openModal('edit-role')">Edit Role</button><button class="btn btn-danger btn-sm" onclick="showToast('⚠️ Max Richter deactivated')">Deactivate</button></div></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="background:#8b5cf6">YT</div><div class="cell-name">Yuki Tanaka</div></div></td><td style="color:var(--text-2)"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3f464a54567f5d52481252504b504d564b46115c5052">[email&#160;protected]</a></td><td><span class="badge badge-gray">Admin</span></td><td style="color:var(--text-3)">Yesterday</td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="openModal('edit-role')">Edit Role</button><button class="btn btn-danger btn-sm" onclick="showToast('⚠️ Yuki Tanaka deactivated')">Deactivate</button></div></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:10px"><div class="avatar" style="background:#f59e0b">LP</div><div class="cell-name">Luca Parisi</div></div></td><td style="color:var(--text-2)"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="432f36202203212e346e2e2c372c312a373a6d202c2e">[email&#160;protected]</a></td><td><span class="badge badge-gray">Admin</span></td><td style="color:var(--text-3)">3 days ago</td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="openModal('edit-role')">Edit Role</button><button class="btn btn-danger btn-sm" onclick="showToast('⚠️ Luca Parisi deactivated')">Deactivate</button></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- NOTIFICATIONS -->
+    <div class="view" id="v-notifications">
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">Notifications</div>
+          <button class="btn btn-ghost btn-sm" onclick="showToast('✅ All marked as read')">Mark all read</button>
+        </div>
+        <div class="notify-item" onclick="nav('catalog');showToast('📋 Viewing BMW M2 G87 in catalog')"><div class="notify-dot"></div><div><div class="notify-text"><strong>New model added</strong> — BMW M2 G87 added to catalog by Motority team. Add your brand images and description.</div><div class="notify-meta">2 hours ago · Cars Catalog</div></div></div>
+        <div class="notify-item" onclick="nav('catalog');showToast('📋 Viewing BMW 3 Series G20 LCI')"><div class="notify-dot"></div><div><div class="notify-text"><strong>New generation</strong> — BMW 3 Series G20 LCI added. Upload generation images and external links.</div><div class="notify-meta">1 day ago · Cars Catalog</div></div></div>
+        <div class="notify-item" onclick="nav('community');showToast('📊 Community stats')"><div class="notify-dot"></div><div><div class="notify-text"><strong>Community growth</strong> — 47 new logbooks created this week for BMW models.</div><div class="notify-meta">3 days ago · Community</div></div></div>
+        <div class="notify-item"><div class="notify-dot read"></div><div><div class="notify-text" style="color:var(--text-2)">Hero image uploaded successfully to landing page.</div><div class="notify-meta">5 days ago · Landing Page</div></div></div>
+        <div class="notify-item"><div class="notify-dot read"></div><div><div class="notify-text" style="color:var(--text-2)">Brand colors updated and applied to landing.</div><div class="notify-meta">1 week ago · Brand Style</div></div></div>
+      </div>
+    </div>
+
+    <!-- HISTORY -->
+    <div class="view" id="v-history">
+      <div class="section-card">
+        <div class="section-header"><div class="section-title">Version History</div><div class="section-sub">All content changes</div></div>
+        <table>
+          <thead><tr><th>Editor</th><th>Object</th><th>Change Type</th><th>Time</th><th></th></tr></thead>
+          <tbody>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm">AK</div>Anna K.</div></td><td>BMW M4 description</td><td><span class="badge badge-blue">Edited</span></td><td style="color:var(--text-3)">2h ago</td><td><button class="restore-btn" onclick="showToast('♻️ Restored to this version')">Restore</button></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm" style="background:var(--green)">MR</div>Max R.</div></td><td>Hero Block</td><td><span class="badge badge-yellow">Style changed</span></td><td style="color:var(--text-3)">5h ago</td><td><button class="restore-btn" onclick="showToast('♻️ Restored to this version')">Restore</button></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm" style="background:#8b5cf6">YT</div>Yuki T.</div></td><td>BMW X5 G05 generation</td><td><span class="badge badge-green">Created</span></td><td style="color:var(--text-3)">Yesterday</td><td><button class="restore-btn" onclick="showToast('♻️ Restored to this version')">Restore</button></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm">AK</div>Anna K.</div></td><td>Brand Primary Color</td><td><span class="badge badge-yellow">Style changed</span></td><td style="color:var(--text-3)">2 days ago</td><td><button class="restore-btn" onclick="showToast('♻️ Restored to this version')">Restore</button></td></tr>
+            <tr><td><div style="display:flex;align-items:center;gap:8px"><div class="avatar sm" style="background:#f59e0b">LP</div>Luca P.</div></td><td>BMW iX visibility</td><td><span class="badge badge-red">Deleted</span></td><td style="color:var(--text-3)">3 days ago</td><td><button class="restore-btn" onclick="showToast('♻️ Restored to this version')">Restore</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="view" id="v-settings">
+      <div class="section-card">
+        <div class="section-header">
+          <div class="section-title">General Settings</div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ Settings saved')">Save Changes</button>
+        </div>
+        <div class="form-grid">
+          <div class="form-group"><label>Brand Name</label><input type="text" value="BMW"></div>
+          <div class="form-group"><label>Domain</label><input type="text" value="bmw.motority.com"></div>
+          <div class="form-group"><label>Contact Email</label><input type="email" value="admin@bmw-motority.com"></div>
+          <div class="form-group"><label>Default Language</label><select><option>English</option><option>Deutsch</option><option>Русский</option></select></div>
+        </div>
+        <div style="padding:0 20px 20px">
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:16px">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+              <div><div style="font-size:14px;font-weight:600;color:var(--text)">Maintenance Mode</div><div style="font-size:12px;color:var(--text-3);margin-top:2px">Show placeholder page to visitors</div></div>
+              <div class="toggle" id="maint-toggle" onclick="toggleMaint()"></div>
+            </div>
+            <div id="maint-warning" style="display:none;padding:10px;background:var(--yellow-bg);border-radius:var(--radius-sm);font-size:12px;color:var(--yellow)">⚠️ Maintenance mode is ON — visitors see a placeholder page</div>
+          </div>
+        </div>
+        <div style="padding:0 20px 20px">
+          <div style="font-size:12px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">Backup &amp; Restore</div>
+          <div class="actions">
+            <button class="btn btn-ghost" onclick="showToast('💾 Manual backup created')">Create Backup</button>
+            <button class="btn btn-ghost" onclick="nav('history')">Restore from History</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-add-model" style="display:none">
+    <div class="modal-header"><div class="modal-title" id="model-modal-title">Add Model</div><button class="modal-close" onclick="closeAllModals()">✕</button></div>
+    <div class="form-grid">
+      <div class="form-group"><label>Model Name</label><input type="text" id="model-name-input" placeholder="e.g. BMW M5"></div>
+      <div class="form-group"><label>Production Years</label><input type="text" placeholder="e.g. 2021 – Present"></div>
+      <div class="form-group full"><label>Description</label><textarea rows="3" placeholder="Model description..."></textarea></div>
+      <div class="form-group"><label>Body Type</label><select><option>Sedan</option><option>Coupe</option><option>SAV</option><option>Convertible</option><option>Touring</option></select></div>
+      <div class="form-group"><label>Power Type</label><select><option>Combustion</option><option>Electric</option><option>Hybrid</option></select></div>
+      <div class="form-group full"><label>Main Image</label><div class="upload-zone" onclick="showToast('📁 File picker opened')"><div class="upload-icon">🖼️</div><div class="upload-text">Upload model image</div><div class="upload-hint">JPG, WebP · max 5MB</div></div></div>
+      <div class="form-group full"><label>External Links</label><div style="display:flex;flex-direction:column;gap:8px"><input type="url" placeholder="Buy car link"><input type="url" placeholder="Official site link"><input type="url" placeholder="Configurator link"></div></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeAllModals()">Cancel</button><button class="btn btn-primary" onclick="closeAllModals();showToast('✅ Model saved successfully')">Save Model</button></div>
+  </div>
+
+  <div class="modal" id="modal-edit-gen" style="display:none">
+    <div class="modal-header"><div class="modal-title">Edit Generation — BMW M4 G82</div><button class="modal-close" onclick="closeAllModals()">✕</button></div>
+    <div class="form-grid">
+      <div class="form-group"><label>Generation Name</label><input type="text" value="BMW M4 G82"></div>
+      <div class="form-group"><label>Years</label><input type="text" value="2020 – Present"></div>
+      <div class="form-group full"><label>Description</label><textarea rows="3">The G82 M4 features the S58 engine producing 480hp in Competition trim, with available xDrive all-wheel drive.</textarea></div>
+      <div class="form-group full"><label>Main Image</label><div class="upload-zone" onclick="showToast('📁 File picker opened')"><div class="upload-icon">📷</div><div class="upload-text">Change generation image</div></div></div>
+      <div class="form-group full"><label>External Links</label><div style="display:flex;flex-direction:column;gap:8px"><input type="url" placeholder="Buy car link" value="https://bmw.com/buy/m4"><input type="url" placeholder="Buy parts" value="https://bmw-parts.com"></div></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeAllModals()">Cancel</button><button class="btn btn-primary" onclick="closeAllModals();showToast('✅ Generation saved')">Save Changes</button></div>
+  </div>
+
+  <div class="modal" id="modal-invite-user" style="display:none;max-width:420px;width:420px">
+    <div class="modal-header"><div class="modal-title">Invite User</div><button class="modal-close" onclick="closeAllModals()">✕</button></div>
+    <div class="form-grid" style="grid-template-columns:1fr">
+      <div class="form-group"><label>Full Name</label><input type="text" placeholder="e.g. John Smith"></div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="john@company.com"></div>
+      <div class="form-group"><label>Role</label><select><option>Admin</option><option>Super Admin</option></select></div>
+      <div style="background:var(--surface2);border-radius:var(--radius-sm);padding:12px;font-size:12px;color:var(--text-3)">A temporary password will be sent to this email. The user must change it on first login.</div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeAllModals()">Cancel</button><button class="btn btn-primary" onclick="closeAllModals();showToast('📧 Invitation sent!')">Send Invitation</button></div>
+  </div>
+
+  <div class="modal" id="modal-edit-role" style="display:none;max-width:360px;width:360px">
+    <div class="modal-header"><div class="modal-title">Edit Role — Max Richter</div><button class="modal-close" onclick="closeAllModals()">✕</button></div>
+    <div class="form-grid" style="grid-template-columns:1fr">
+      <div class="form-group"><label>Role</label><select><option>Admin</option><option>Super Admin</option></select></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeAllModals()">Cancel</button><button class="btn btn-primary" onclick="closeAllModals();showToast('✅ Role updated')">Save</button></div>
+  </div>
+
+  <div class="modal" id="modal-add-gen" style="display:none">
+    <div class="modal-header"><div class="modal-title">Add Generation</div><button class="modal-close" onclick="closeAllModals()">✕</button></div>
+    <div class="form-grid">
+      <div class="form-group"><label>Generation Name</label><input type="text" placeholder="e.g. BMW M4 G82 CS"></div>
+      <div class="form-group"><label>Years</label><input type="text" placeholder="e.g. 2023 – Present"></div>
+      <div class="form-group full"><label>Description</label><textarea rows="2" placeholder="Generation description..."></textarea></div>
+      <div class="form-group full"><label>Main Image</label><div class="upload-zone" onclick="showToast('📁 File picker opened')"><div class="upload-icon">🖼️</div><div class="upload-text">Upload image</div></div></div>
+    </div>
+    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeAllModals()">Cancel</button><button class="btn btn-primary" onclick="closeAllModals();showToast('✅ Generation added')">Add Generation</button></div>
+  </div>
+</div>
+
+<div id="toast"><span id="toast-icon"></span><span id="toast-text"></span></div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const titles={dashboard:'Dashboard',landing:'Landing Page Editor',catalog:'Cars Catalog',media:'Media Library',style:'Brand Style',community:'Community',users:'Users & Roles',notifications:'Notifications',history:'Version History',settings:'Settings'};
+const navOrder=['dashboard','landing','catalog','media','style','community','users','notifications','history','settings'];
+
+function nav(id){
+  navOrder.forEach((n,i)=>document.querySelectorAll('.sb-item')[i]?.classList.remove('active'));
+  const idx=navOrder.indexOf(id);
+  document.querySelectorAll('.sb-item')[idx]?.classList.add('active');
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('v-'+id)?.classList.add('active');
+  document.getElementById('topbar-title').textContent=titles[id]||id;
+}
+
+function switchHero(type){
+  const isImg=type==='image';
+  document.getElementById('hero-image-fields').style.display=isImg?'':'none';
+  document.getElementById('hero-video-fields').style.display=isImg?'none':'';
+  document.getElementById('hero-img-btn').classList.toggle('active',isImg);
+  document.getElementById('hero-vid-btn').classList.toggle('active',!isImg);
+}
+
+function switchCatalogTab(tab){
+  document.querySelectorAll('#catalog-tabs .tab').forEach((t,i)=>t.classList.toggle('active',(i===0&&tab==='models')||(i===1&&tab==='gen')));
+  document.getElementById('catalog-models').style.display=tab==='models'?'':'none';
+  document.getElementById('catalog-gen').style.display=tab==='gen'?'':'none';
+}
+
+function openModal(name){
+  document.querySelectorAll('.modal').forEach(m=>m.style.display='none');
+  const m=document.getElementById('modal-'+name);
+  if(m){m.style.display='';document.getElementById('modal-overlay').classList.add('open')}
+}
+
+function closeAllModals(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  setTimeout(()=>document.querySelectorAll('.modal').forEach(m=>m.style.display='none'),200);
+}
+
+function closeModal(e){if(e.target===document.getElementById('modal-overlay'))closeAllModals()}
+
+function openModelEditor(name){
+  openModal('add-model');
+  setTimeout(()=>{
+    document.getElementById('model-modal-title').textContent='Edit Model — '+name;
+    document.getElementById('model-name-input').value=name;
+  },50);
+}
+
+let toastTimer;
+function showToast(msg){
+  const m=msg.match(/^([^\s]+)\s(.+)$/);
+  document.getElementById('toast-icon').textContent=m?m[1]:'ℹ️';
+  document.getElementById('toast-text').textContent=m?m[2]:msg;
+  const t=document.getElementById('toast');
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+function toggleMaint(){
+  const t=document.getElementById('maint-toggle');
+  const w=document.getElementById('maint-warning');
+  t.classList.toggle('on');
+  w.style.display=t.classList.contains('on')?'':'none';
+  showToast(t.classList.contains('on')?'�
