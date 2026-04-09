@@ -127,25 +127,216 @@
               <div><div class="section-title">Hero Block</div><div class="section-sub">Top visual of the landing page</div></div>
               <button class="btn btn-primary btn-sm" onclick="showToast('✅ Hero block saved')">Save Changes</button>
             </div>
-            <div class="hero-type-switcher">
-              <button class="hero-type-btn active" id="hero-img-btn" onclick="switchHero('image')">📷 Image</button>
-              <button class="hero-type-btn" id="hero-vid-btn" onclick="switchHero('video')">🎬 Video</button>
+
+            <!-- Hero type tabs -->
+            <div class="hero-type-tabs">
+              <button class="hero-tab active" id="htab-image" onclick="switchHero('image')">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                Photo
+              </button>
+              <button class="hero-tab" id="htab-video" onclick="switchHero('video')">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+                Video
+              </button>
+              <button class="hero-tab" id="htab-carousel" onclick="switchHero('carousel')">
+                <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M17 12H7M22 12h-2M2 12H4"/><path d="M15 9l3 3-3 3M9 9l-3 3 3 3"/></svg>
+                Carousel
+              </button>
             </div>
+
+            <!-- PHOTO fields -->
             <div id="hero-image-fields">
+              <div class="hero-media-section">
+                <div class="hero-media-label">Background Photo</div>
+                <div class="hero-media-row">
+                  <div class="upload-zone hero-upload" onclick="showToast('📁 File picker opened')">
+                    <div class="upload-icon">🖼️</div>
+                    <div class="upload-text">Drop image or click to upload</div>
+                    <div class="upload-hint">1600×900px · JPG/WebP · max 5MB</div>
+                  </div>
+                  <div class="hero-media-or">or</div>
+                  <button class="btn btn-ghost hero-media-pick" onclick="openModal('pick-media')">
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                    Choose from Media Library
+                  </button>
+                </div>
+                <div class="hero-current-media" id="hero-image-current" style="display:none">
+                  <div class="hero-current-thumb" style="background:linear-gradient(135deg,#1e3a5f,#0f3460)">🏎️</div>
+                  <div class="hero-current-info">
+                    <div class="hero-current-name">hero-main.jpg</div>
+                    <div class="hero-current-meta">2.4 MB · 1600×900</div>
+                  </div>
+                  <button class="hero-current-remove" onclick="removeHeroMedia('hero-image-current')" title="Remove">
+                    <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                  </button>
+                </div>
+              </div>
               <div class="form-grid">
-                <div class="form-group full"><label>Hero Image</label><div class="upload-zone" onclick="showToast('📁 File picker opened')"><div class="upload-icon">🖼️</div><div class="upload-text">Drop image or click to upload</div><div class="upload-hint">Recommended: 1600×900px, JPG/WebP, max 5MB</div></div></div>
-                <div class="form-group"><label>Headline</label><input type="text" value="The Ultimate Driving Machine"></div>
-                <div class="form-group"><label>Subheadline</label><input type="text" value="Over a century of precision engineering."></div>
-                <div class="form-group"><label>CTA Button Text</label><input type="text" value="Explore Models"></div>
-                <div class="form-group"><label>CTA Link</label><input type="url" value="https://bmw.motority.com/models"></div>
+                <div class="form-group full"><div class="field-divider"></div></div>
+                <div class="form-group full"><label>H1 — Headline</label><input type="text" value="The Ultimate Driving Machine" placeholder="Main heading"></div>
+                <div class="form-group full"><label>H2 — Subheadline</label><input type="text" value="Over a century of precision engineering." placeholder="Supporting text"></div>
+                <div class="form-group">
+                  <label>CTA Primary — Button Text</label>
+                  <input type="text" value="Explore Models" placeholder="e.g. Explore Models">
+                </div>
+                <div class="form-group">
+                  <label>CTA Primary — Link URL</label>
+                  <input type="url" value="https://bmw.motority.com/models" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                  <label>CTA Secondary — Button Text</label>
+                  <input type="text" value="Join the Community" placeholder="e.g. Join Community">
+                </div>
+                <div class="form-group">
+                  <label>CTA Secondary — Link URL</label>
+                  <input type="url" value="https://motority.com/join" placeholder="https://...">
+                </div>
               </div>
             </div>
+
+            <!-- VIDEO fields -->
             <div id="hero-video-fields" style="display:none">
+              <div class="hero-media-section">
+                <div class="hero-media-label">Background Video</div>
+                <div class="hero-media-row">
+                  <div class="upload-zone hero-upload" onclick="showToast('📁 File picker opened')">
+                    <div class="upload-icon">🎬</div>
+                    <div class="upload-text">Drop video or click to upload</div>
+                    <div class="upload-hint">MP4/WebM · max 100MB · recommended 1920×1080</div>
+                  </div>
+                  <div class="hero-media-or">or</div>
+                  <button class="btn btn-ghost hero-media-pick" onclick="openModal('pick-media')">
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                    Choose from Media Library
+                  </button>
+                </div>
+                <div class="hero-media-label" style="margin-top:16px">Preview Thumbnail</div>
+                <div class="hero-media-row">
+                  <div class="upload-zone hero-upload" style="padding:16px" onclick="showToast('📁 File picker opened')">
+                    <div class="upload-icon" style="font-size:18px">🖼️</div>
+                    <div class="upload-text">Upload thumbnail image</div>
+                    <div class="upload-hint">Shown before video loads</div>
+                  </div>
+                  <div class="hero-media-or">or</div>
+                  <button class="btn btn-ghost hero-media-pick" onclick="openModal('pick-media')">
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                    Choose from Media Library
+                  </button>
+                </div>
+              </div>
               <div class="form-grid">
-                <div class="form-group full"><label>Video URL</label><input type="url" placeholder="https://youtube.com/watch?v=..."></div>
-                <div class="form-group full"><label>Preview Image</label><div class="upload-zone" onclick="showToast('📁 File picker opened')"><div class="upload-icon">🖼️</div><div class="upload-text">Upload preview thumbnail</div></div></div>
-                <div class="form-group"><label>Headline</label><input type="text" placeholder="Enter headline"></div>
-                <div class="form-group"><label>Subheadline</label><input type="text" placeholder="Enter subheadline"></div>
+                <div class="form-group full"><div class="field-divider"></div></div>
+                <div class="form-group full"><label>H1 — Headline</label><input type="text" placeholder="Main heading"></div>
+                <div class="form-group full"><label>H2 — Subheadline</label><input type="text" placeholder="Supporting text"></div>
+                <div class="form-group">
+                  <label>CTA Primary — Button Text</label>
+                  <input type="text" placeholder="e.g. Explore Models">
+                </div>
+                <div class="form-group">
+                  <label>CTA Primary — Link URL</label>
+                  <input type="url" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                  <label>CTA Secondary — Button Text</label>
+                  <input type="text" placeholder="e.g. Join Community">
+                </div>
+                <div class="form-group">
+                  <label>CTA Secondary — Link URL</label>
+                  <input type="url" placeholder="https://...">
+                </div>
+              </div>
+            </div>
+
+            <!-- CAROUSEL fields -->
+            <div id="hero-carousel-fields" style="display:none">
+              <div class="hero-media-section">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+                  <div class="hero-media-label" style="margin-bottom:0">Carousel Slides <span class="badge badge-gray" style="margin-left:6px;font-size:11px">3 slides</span></div>
+                  <button class="btn btn-ghost btn-sm" onclick="showToast('➕ New slide added')">+ Add Slide</button>
+                </div>
+                <!-- Slide 1 -->
+                <div class="carousel-slide-item">
+                  <div class="carousel-slide-num">1</div>
+                  <div class="carousel-slide-thumb" style="background:linear-gradient(135deg,#1e3a5f,#0f3460)">🏎️</div>
+                  <div class="carousel-slide-info">
+                    <div class="carousel-slide-name">hero-main.jpg</div>
+                    <div class="carousel-slide-meta">2.4 MB · 1600×900</div>
+                  </div>
+                  <div style="display:flex;gap:6px;margin-left:auto">
+                    <button class="btn btn-ghost btn-sm" onclick="showToast('✏️ Slide 1 editing')">Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="showToast('🗑️ Slide removed')">Remove</button>
+                  </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="carousel-slide-item">
+                  <div class="carousel-slide-num">2</div>
+                  <div class="carousel-slide-thumb" style="background:linear-gradient(135deg,#2d3748,#1a202c)">🚗</div>
+                  <div class="carousel-slide-info">
+                    <div class="carousel-slide-name">m4-front.jpg</div>
+                    <div class="carousel-slide-meta">1.1 MB · 800×533</div>
+                  </div>
+                  <div style="display:flex;gap:6px;margin-left:auto">
+                    <button class="btn btn-ghost btn-sm" onclick="showToast('✏️ Slide 2 editing')">Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="showToast('🗑️ Slide removed')">Remove</button>
+                  </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="carousel-slide-item">
+                  <div class="carousel-slide-num">3</div>
+                  <div class="carousel-slide-thumb" style="background:linear-gradient(135deg,#2d6a4f,#1b4332)">🚙</div>
+                  <div class="carousel-slide-info">
+                    <div class="carousel-slide-name">x5-road.jpg</div>
+                    <div class="carousel-slide-meta">1.8 MB · 1200×800</div>
+                  </div>
+                  <div style="display:flex;gap:6px;margin-left:auto">
+                    <button class="btn btn-ghost btn-sm" onclick="showToast('✏️ Slide 3 editing')">Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="showToast('🗑️ Slide removed')">Remove</button>
+                  </div>
+                </div>
+                <!-- Add slide zone -->
+                <div class="hero-media-row" style="margin-top:10px">
+                  <div class="upload-zone hero-upload" style="padding:16px" onclick="showToast('📁 File picker opened')">
+                    <div class="upload-icon" style="font-size:18px">+</div>
+                    <div class="upload-text">Upload new slide</div>
+                  </div>
+                  <div class="hero-media-or">or</div>
+                  <button class="btn btn-ghost hero-media-pick" onclick="openModal('pick-media')">
+                    <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                    Choose from Media Library
+                  </button>
+                </div>
+                <!-- Carousel settings -->
+                <div class="carousel-settings">
+                  <div class="form-group" style="flex-direction:row;align-items:center;gap:10px">
+                    <div class="toggle on" onclick="this.classList.toggle('on')"></div>
+                    <label>Autoplay</label>
+                  </div>
+                  <div class="form-group">
+                    <label>Slide duration (seconds)</label>
+                    <input type="text" value="5" style="width:80px">
+                  </div>
+                </div>
+              </div>
+              <div class="form-grid">
+                <div class="form-group full"><div class="field-divider"></div></div>
+                <div class="form-group full"><label>H1 — Headline</label><input type="text" value="The Ultimate Driving Machine" placeholder="Main heading"></div>
+                <div class="form-group full"><label>H2 — Subheadline</label><input type="text" value="Over a century of precision engineering." placeholder="Supporting text"></div>
+                <div class="form-group">
+                  <label>CTA Primary — Button Text</label>
+                  <input type="text" value="Explore Models" placeholder="e.g. Explore Models">
+                </div>
+                <div class="form-group">
+                  <label>CTA Primary — Link URL</label>
+                  <input type="url" value="https://bmw.motority.com/models" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                  <label>CTA Secondary — Button Text</label>
+                  <input type="text" value="Join the Community" placeholder="e.g. Join Community">
+                </div>
+                <div class="form-group">
+                  <label>CTA Secondary — Link URL</label>
+                  <input type="url" value="https://motority.com/join" placeholder="https://...">
+                </div>
               </div>
             </div>
           </div>
@@ -157,8 +348,28 @@
             </div>
             <div style="padding:20px;display:flex;flex-direction:column;gap:16px">
               <div class="form-group"><div class="toggle-group"><div class="toggle on" onclick="this.classList.toggle('on')"></div><label>Decades filter (1960s, 1970s … 2020s)</label></div></div>
-              <div class="form-group"><label style="margin-bottom:8px;display:block">Body Types</label><div style="display:flex;flex-wrap:wrap;gap:8px"><span class="chip active" onclick="this.classList.toggle('active')">Compact</span><span class="chip active" onclick="this.classList.toggle('active')">Convertible</span><span class="chip active" onclick="this.classList.toggle('active')">Coupe</span><span class="chip active" onclick="this.classList.toggle('active')">Roadster</span><span class="chip active" onclick="this.classList.toggle('active')">SAV</span><span class="chip active" onclick="this.classList.toggle('active')">Sedan</span><span class="chip active" onclick="this.classList.toggle('active')">Touring</span><span class="chip" onclick="this.classList.toggle('active')">Hatchback</span></div></div>
-              <div class="form-group"><label style="margin-bottom:8px;display:block">Power Types</label><div style="display:flex;flex-wrap:wrap;gap:8px"><span class="chip active" onclick="this.classList.toggle('active')">Electric</span><span class="chip active" onclick="this.classList.toggle('active')">Hybrid</span><span class="chip active" onclick="this.classList.toggle('active')">Combustion</span></div></div>
+              <div class="form-group">
+                <label style="margin-bottom:8px;display:block">Body Types</label>
+                <div class="chip-group">
+                  <span class="chip active" onclick="toggleChip(this)">Compact<svg class="chip-x" viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                  <span class="chip active" onclick="toggleChip(this)">Convertible<svg class="chip-x" viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                  <span class="chip active" onclick="toggleChip(this)">Coupe<svg class="chip-x" viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                  <span class="chip active" onclick="toggleChip(this)">Roadster<svg class="chip-x" viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                  <span class="chip active" onclick="toggleChip(this)">SAV<svg class="chip-x" viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                  <span class="chip active" onclick="toggleChip(this)">Sedan<svg class="chip-x" viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                  <span class="chip active" onclick="toggleChip(this)">Touring<svg class="chip-x" viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                  <span class="chip" onclick="toggleChip(this)">Hatchback<svg class="chip-x" viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                  <span class="chip" onclick="toggleChip(this)">Wagon<svg class="chip-x" viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label style="margin-bottom:8px;display:block">Power Types</label>
+                <div class="chip-group">
+                  <span class="chip active" onclick="toggleChip(this)">Electric<svg class="chip-x" viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                  <span class="chip active" onclick="toggleChip(this)">Hybrid<svg class="chip-x" viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                  <span class="chip active" onclick="toggleChip(this)">Combustion<svg class="chip-x" viewBox="0 0 10 10"><path d="M2 2l6 6M8 2l-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -483,7 +694,53 @@
     <div class="modal-footer"><button class="btn btn-ghost" onclick="closeAllModals()">Cancel</button><button class="btn btn-primary" onclick="closeAllModals();showToast('✅ Role updated')">Save</button></div>
   </div>
 
-  <div class="modal" id="modal-add-gen" style="display:none">
+  <div class="modal" id="modal-pick-media" style="display:none;width:620px;max-width:620px">
+    <div class="modal-header">
+      <div class="modal-title">Choose from Media Library</div>
+      <button class="modal-close" onclick="closeAllModals()">✕</button>
+    </div>
+    <div style="padding:16px 20px 0;display:flex;gap:8px;border-bottom:1px solid var(--border);padding-bottom:12px">
+      <span class="chip active" onclick="filterMedia(this,'all')">All</span>
+      <span class="chip" onclick="filterMedia(this,'image')">Images</span>
+      <span class="chip" onclick="filterMedia(this,'video')">Videos</span>
+      <span class="chip" onclick="filterMedia(this,'logo')">Logos</span>
+    </div>
+    <div class="media-grid" style="padding:16px;grid-template-columns:repeat(auto-fill,minmax(110px,1fr))">
+      <div class="media-card media-pick-card" onclick="selectMedia(this,'hero-main.jpg','2.4 MB · 1600×900')">
+        <div class="media-thumb" style="background:linear-gradient(135deg,#1e3a5f,#0f3460)">🏎️</div>
+        <div class="media-info"><div class="media-name">hero-main.jpg</div><div class="media-size">2.4 MB</div></div>
+      </div>
+      <div class="media-card media-pick-card" onclick="selectMedia(this,'m4-front.jpg','1.1 MB · 800×533')">
+        <div class="media-thumb" style="background:linear-gradient(135deg,#2d3748,#1a202c)">🚗</div>
+        <div class="media-info"><div class="media-name">m4-front.jpg</div><div class="media-size">1.1 MB</div></div>
+      </div>
+      <div class="media-card media-pick-card" onclick="selectMedia(this,'m3-studio.jpg','0.9 MB · 800×533')">
+        <div class="media-thumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">🚗</div>
+        <div class="media-info"><div class="media-name">m3-studio.jpg</div><div class="media-size">0.9 MB</div></div>
+      </div>
+      <div class="media-card media-pick-card" onclick="selectMedia(this,'brand-video.mp4','48 MB · Video')">
+        <div class="media-thumb" style="background:linear-gradient(135deg,#1e3c72,#2a5298)">🎬</div>
+        <div class="media-info"><div class="media-name">brand-video.mp4</div><div class="media-size">48 MB</div></div>
+      </div>
+      <div class="media-card media-pick-card" onclick="selectMedia(this,'bmw-logo.svg','12 KB · Vector')">
+        <div class="media-thumb" style="background:#f1f5f9">🔵</div>
+        <div class="media-info"><div class="media-name">bmw-logo.svg</div><div class="media-size">12 KB</div></div>
+      </div>
+      <div class="media-card media-pick-card" onclick="selectMedia(this,'x5-road.jpg','1.8 MB · 1200×800')">
+        <div class="media-thumb" style="background:linear-gradient(135deg,#2d6a4f,#1b4332)">🚙</div>
+        <div class="media-info"><div class="media-name">x5-road.jpg</div><div class="media-size">1.8 MB</div></div>
+      </div>
+    </div>
+    <div class="modal-footer" style="justify-content:space-between">
+      <div id="media-selected-label" style="font-size:12px;color:var(--text-3)">No file selected</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-ghost" onclick="closeAllModals()">Cancel</button>
+        <button class="btn btn-primary" id="media-confirm-btn" onclick="confirmMedia()" disabled style="opacity:.5;cursor:not-allowed">Insert</button>
+      </div>
+    </div>
+  </div>
+
+
     <div class="modal-header"><div class="modal-title">Add Generation</div><button class="modal-close" onclick="closeAllModals()">✕</button></div>
     <div class="form-grid">
       <div class="form-group"><label>Generation Name</label><input type="text" placeholder="e.g. BMW M4 G82 CS"></div>

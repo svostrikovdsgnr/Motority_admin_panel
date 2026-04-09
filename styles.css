@@ -182,3 +182,93 @@ select option{background:var(--surface2)}
 }
 .light .theme-pill{box-shadow:0 1px 6px rgba(0,0,0,.12)}
 body.is-light .theme-pill{transform:translateX(100%)}
+
+/* ── HERO BLOCK TABS ─────────────────────────────── */
+.hero-type-tabs{display:flex;gap:0;padding:16px 20px 0;border-bottom:1px solid var(--border)}
+.hero-tab{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:8px 18px;font-size:13px;font-weight:600;
+  font-family:'DM Sans',sans-serif;background:transparent;
+  border:none;border-bottom:2px solid transparent;
+  color:var(--text-3);cursor:pointer;transition:all .15s;
+  margin-bottom:-1px;
+}
+.hero-tab:hover{color:var(--text)}
+.hero-tab.active{color:var(--accent-light);border-bottom-color:var(--accent)}
+
+/* ── HERO MEDIA ROW ──────────────────────────────── */
+.hero-media-section{padding:20px 20px 0}
+.hero-media-label{font-size:12px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+.hero-media-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hero-upload{flex:1;min-width:200px;padding:20px;margin:0}
+.hero-media-or{font-size:12px;color:var(--text-3);font-weight:500;flex-shrink:0}
+.hero-media-pick{flex-shrink:0;white-space:nowrap}
+
+/* ── HERO CURRENT FILE ───────────────────────────── */
+.hero-current-media{
+  display:flex;align-items:center;gap:10px;
+  margin-top:10px;padding:10px 12px;
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+}
+.hero-current-thumb{
+  width:48px;height:34px;border-radius:5px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+.hero-current-name{font-size:13px;font-weight:600;color:var(--text)}
+.hero-current-meta{font-size:11px;color:var(--text-3);margin-top:2px}
+.hero-current-remove{
+  margin-left:auto;width:24px;height:24px;border-radius:5px;
+  background:none;border:1px solid var(--border);color:var(--text-3);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;
+}
+.hero-current-remove:hover{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+
+/* ── FIELD DIVIDER ───────────────────────────────── */
+.field-divider{height:1px;background:var(--border);margin:4px 0}
+
+/* ── CAROUSEL SLIDES ─────────────────────────────── */
+.carousel-slide-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 0;border-bottom:1px solid var(--border);
+}
+.carousel-slide-item:last-of-type{border-bottom:none}
+.carousel-slide-num{
+  width:22px;height:22px;border-radius:50%;background:var(--surface3);
+  border:1px solid var(--border2);font-size:11px;font-weight:700;
+  color:var(--text-3);display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.carousel-slide-thumb{
+  width:52px;height:36px;border-radius:5px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:16px;
+}
+.carousel-slide-name{font-size:13px;font-weight:600;color:var(--text)}
+.carousel-slide-meta{font-size:11px;color:var(--text-3);margin-top:2px}
+.carousel-settings{
+  display:flex;align-items:center;gap:20px;
+  padding:14px 0 0;margin-top:12px;border-top:1px solid var(--border);
+}
+
+/* ── CHIP WITH × ─────────────────────────────────── */
+.chip-group{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:5px}
+.chip-x{
+  width:10px;height:10px;flex-shrink:0;
+  opacity:0;transition:opacity .15s;pointer-events:none;
+}
+.chip.active .chip-x{opacity:1;pointer-events:auto}
+
+/* ── MEDIA PICKER MODAL ──────────────────────────── */
+.media-pick-card{position:relative;transition:all .15s}
+.media-pick-card.selected{
+  border-color:var(--accent) !important;
+  box-shadow:0 0 0 2px var(--accent-bg);
+}
+.media-pick-card.selected::after{
+  content:'✓';position:absolute;top:4px;right:4px;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--accent);color:#fff;font-size:10px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  line-height:18px;text-align:center;
+}
