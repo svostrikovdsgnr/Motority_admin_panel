@@ -124,8 +124,15 @@ select option{background:var(--surface2)}
 .tabs{display:flex;gap:2px;padding:16px 20px 0;border-bottom:1px solid var(--border)}
 .tab{padding:8px 16px;font-size:13px;font-weight:600;color:var(--text-3);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s}
 .tab:hover{color:var(--text)}.tab.active{color:var(--accent-light);border-bottom-color:var(--accent)}
-.chip{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;border:1px solid var(--border);background:transparent;cursor:pointer;color:var(--text-2);transition:all .15s;display:inline-block}
-.chip:hover{border-color:var(--border2);color:var(--text)}.chip.active{background:var(--accent-bg);border-color:var(--accent);color:var(--accent-light)}
+.chip{
+  padding:5px 12px 5px 14px;border-radius:20px;font-size:12px;font-weight:600;
+  border:1px solid var(--border);background:transparent;cursor:pointer;
+  color:var(--text-2);transition:all .15s;
+  display:inline-flex;align-items:center;gap:5px;
+  user-select:none;
+}
+.chip:hover{border-color:var(--border2);color:var(--text)}
+.chip.active{background:var(--accent-bg);border-color:var(--accent);color:var(--accent-light)}
 .media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;padding:20px}
 .media-card{border-radius:var(--radius-sm);overflow:hidden;background:var(--surface2);border:1px solid var(--border);cursor:pointer;transition:all .15s}
 .media-card:hover{border-color:var(--border2);transform:translateY(-1px)}
@@ -184,24 +191,48 @@ select option{background:var(--surface2)}
 body.is-light .theme-pill{transform:translateX(100%)}
 
 /* ── HERO BLOCK TABS ─────────────────────────────── */
-.hero-type-tabs{display:flex;gap:0;padding:16px 20px 0;border-bottom:1px solid var(--border)}
+.hero-type-tabs{
+  display:flex;gap:4px;
+  padding:12px 16px;
+  border-bottom:1px solid var(--border);
+  background:var(--surface2);
+}
 .hero-tab{
   display:inline-flex;align-items:center;gap:6px;
-  padding:8px 18px;font-size:13px;font-weight:600;
-  font-family:'DM Sans',sans-serif;background:transparent;
-  border:none;border-bottom:2px solid transparent;
+  padding:7px 16px;
+  font-size:12.5px;font-weight:600;
+  font-family:'DM Sans',sans-serif;
+  background:transparent;
+  border:1px solid transparent;
+  border-radius:var(--radius-sm);
   color:var(--text-3);cursor:pointer;transition:all .15s;
-  margin-bottom:-1px;
 }
-.hero-tab:hover{color:var(--text)}
-.hero-tab.active{color:var(--accent-light);border-bottom-color:var(--accent)}
+.hero-tab svg{opacity:.7;transition:opacity .15s}
+.hero-tab:hover{background:var(--surface);color:var(--text);border-color:var(--border)}
+.hero-tab:hover svg{opacity:1}
+.hero-tab.active{
+  background:var(--surface);
+  color:var(--accent-light);
+  border-color:var(--border);
+  box-shadow:0 1px 4px rgba(0,0,0,.15);
+}
+.hero-tab.active svg{opacity:1}
 
 /* ── HERO MEDIA ROW ──────────────────────────────── */
-.hero-media-section{padding:20px 20px 0}
-.hero-media-label{font-size:12px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px}
+.hero-media-section{padding:20px}
+.hero-media-label{
+  font-size:11px;font-weight:700;color:var(--text-3);
+  text-transform:uppercase;letter-spacing:.07em;
+  margin-bottom:10px;display:block;
+}
 .hero-media-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.hero-upload{flex:1;min-width:200px;padding:20px;margin:0}
-.hero-media-or{font-size:12px;color:var(--text-3);font-weight:500;flex-shrink:0}
+.hero-upload{flex:1;min-width:180px;padding:16px 20px;margin:0}
+.hero-media-or{
+  font-size:11px;font-weight:600;color:var(--text-3);
+  flex-shrink:0;background:var(--surface3);
+  border:1px solid var(--border);border-radius:20px;
+  padding:3px 9px;
+}
 .hero-media-pick{flex-shrink:0;white-space:nowrap}
 
 /* ── HERO CURRENT FILE ───────────────────────────── */
@@ -252,12 +283,13 @@ body.is-light .theme-pill{transform:translateX(100%)}
 
 /* ── CHIP WITH × ─────────────────────────────────── */
 .chip-group{display:flex;flex-wrap:wrap;gap:8px}
-.chip{display:inline-flex;align-items:center;gap:5px}
 .chip-x{
   width:10px;height:10px;flex-shrink:0;
   opacity:0;transition:opacity .15s;pointer-events:none;
+  display:block;
 }
-.chip.active .chip-x{opacity:1;pointer-events:auto}
+.chip.active .chip-x{opacity:.7;pointer-events:auto}
+.chip.active:hover .chip-x{opacity:1}
 
 /* ── MEDIA PICKER MODAL ──────────────────────────── */
 .media-pick-card{position:relative;transition:all .15s}
