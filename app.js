@@ -89,13 +89,20 @@ function closeAllModals(){
 
 function closeModal(e){if(e.target===document.getElementById('modal-overlay'))closeAllModals()}
 
-function openModelEditor(name){
-  openModal('add-model');
-  setTimeout(()=>{
-    document.getElementById('model-modal-title').textContent='Edit Model — '+name;
-    document.getElementById('model-name-input').value=name;
-  },50);
+function navAddModel(modelName){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('v-add-model')?.classList.add('active');
+  const isEdit=!!modelName;
+  document.getElementById('topbar-title').textContent=isEdit?'Edit Model':'Add Model';
+  document.getElementById('add-model-page-title').textContent=isEdit?'Edit Model — '+modelName:'Add New Model';
+  const nameInput=document.getElementById('add-model-name');
+  if(nameInput) nameInput.value=modelName||'';
+  const catalogIdx=navOrder.indexOf('catalog');
+  document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+  document.querySelectorAll('.sb-item')[catalogIdx]?.classList.add('active');
 }
+
+function openModelEditor(name){ navAddModel(name); }
 
 let toastTimer;
 function showToast(msg){
