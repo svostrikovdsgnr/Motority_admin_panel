@@ -468,7 +468,7 @@
         </div>
       </div>
     </div>
-    
+
     <!-- MEDIA -->
     <div class="view" id="v-media">
       <div class="section-card">
@@ -647,9 +647,9 @@
   </div>
 </div>
 
-  <div class="modal" id="modal-edit-gen" style="display:none">
-    <div class="modal-header"><div class="modal-title">Edit Generation — BMW M4 G82</div><button class="modal-close" onclick="closeAllModals()">✕</button></div>
-    <div class="modal" id="modal-add-model" style="display:none">
+<!-- MODALS -->
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal-add-model" style="display:none">
     <div class="modal-header"><div class="modal-title" id="model-modal-title">Add Model</div><button class="modal-close" onclick="closeAllModals()">✕</button></div>
     <div class="form-grid">
       <div class="form-group"><label>Model Name</label><input type="text" id="model-name-input" placeholder="e.g. BMW M5"></div>
@@ -663,6 +663,8 @@
     <div class="modal-footer"><button class="btn btn-ghost" onclick="closeAllModals()">Cancel</button><button class="btn btn-primary" onclick="closeAllModals();showToast('✅ Model saved successfully')">Save Model</button></div>
   </div>
 
+  <div class="modal" id="modal-edit-gen" style="display:none">
+    <div class="modal-header"><div class="modal-title">Edit Generation — BMW M4 G82</div><button class="modal-close" onclick="closeAllModals()">✕</button></div>
     <div class="form-grid">
       <div class="form-group"><label>Generation Name</label><input type="text" value="BMW M4 G82"></div>
       <div class="form-group"><label>Years</label><input type="text" value="2020 – Present"></div>
@@ -692,53 +694,67 @@
     <div class="modal-footer"><button class="btn btn-ghost" onclick="closeAllModals()">Cancel</button><button class="btn btn-primary" onclick="closeAllModals();showToast('✅ Role updated')">Save</button></div>
   </div>
 
-  <div class="modal" id="modal-pick-media" style="display:none;width:620px;max-width:620px">
+  <div class="modal modal-media-picker" id="modal-pick-media" style="display:none">
     <div class="modal-header">
-      <div class="modal-title">Choose from Media Library</div>
+      <div>
+        <div class="modal-title">Media Library</div>
+        <div style="font-size:12px;color:var(--text-3);margin-top:2px">Select a file to insert into the hero block</div>
+      </div>
       <button class="modal-close" onclick="closeAllModals()">✕</button>
     </div>
-    <div style="padding:16px 20px 0;display:flex;gap:8px;border-bottom:1px solid var(--border);padding-bottom:12px">
+    <div style="padding:12px 20px;display:flex;gap:8px;border-bottom:1px solid var(--border)">
       <span class="chip active" onclick="filterMedia(this,'all')">All</span>
       <span class="chip" onclick="filterMedia(this,'image')">Images</span>
       <span class="chip" onclick="filterMedia(this,'video')">Videos</span>
       <span class="chip" onclick="filterMedia(this,'logo')">Logos</span>
     </div>
-    <div class="media-grid" style="padding:16px;grid-template-columns:repeat(auto-fill,minmax(110px,1fr))">
+    <div class="media-grid" style="grid-template-columns:repeat(auto-fill,minmax(130px,1fr));max-height:420px;overflow-y:auto">
       <div class="media-card media-pick-card" onclick="selectMedia(this,'hero-main.jpg','2.4 MB · 1600×900')">
-        <div class="media-thumb" style="background:linear-gradient(135deg,#1e3a5f,#0f3460)">🏎️</div>
-        <div class="media-info"><div class="media-name">hero-main.jpg</div><div class="media-size">2.4 MB</div></div>
+        <div class="media-thumb" style="height:90px;background:linear-gradient(135deg,#1e3a5f,#0f3460)">🏎️</div>
+        <div class="media-info"><div class="media-name">hero-main.jpg</div><div class="media-size">2.4 MB · 1600×900</div></div>
       </div>
       <div class="media-card media-pick-card" onclick="selectMedia(this,'m4-front.jpg','1.1 MB · 800×533')">
-        <div class="media-thumb" style="background:linear-gradient(135deg,#2d3748,#1a202c)">🚗</div>
-        <div class="media-info"><div class="media-name">m4-front.jpg</div><div class="media-size">1.1 MB</div></div>
+        <div class="media-thumb" style="height:90px;background:linear-gradient(135deg,#2d3748,#1a202c)">🚗</div>
+        <div class="media-info"><div class="media-name">m4-front.jpg</div><div class="media-size">1.1 MB · 800×533</div></div>
       </div>
       <div class="media-card media-pick-card" onclick="selectMedia(this,'m3-studio.jpg','0.9 MB · 800×533')">
-        <div class="media-thumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">🚗</div>
-        <div class="media-info"><div class="media-name">m3-studio.jpg</div><div class="media-size">0.9 MB</div></div>
+        <div class="media-thumb" style="height:90px;background:linear-gradient(135deg,#1a1a2e,#16213e)">🚗</div>
+        <div class="media-info"><div class="media-name">m3-studio.jpg</div><div class="media-size">0.9 MB · 800×533</div></div>
       </div>
-      <div class="media-card media-pick-card" onclick="selectMedia(this,'brand-video.mp4','48 MB · Video')">
-        <div class="media-thumb" style="background:linear-gradient(135deg,#1e3c72,#2a5298)">🎬</div>
-        <div class="media-info"><div class="media-name">brand-video.mp4</div><div class="media-size">48 MB</div></div>
+      <div class="media-card media-pick-card" onclick="selectMedia(this,'brand-video.mp4','48 MB · 1920×1080')">
+        <div class="media-thumb" style="height:90px;background:linear-gradient(135deg,#1e3c72,#2a5298)">🎬</div>
+        <div class="media-info"><div class="media-name">brand-video.mp4</div><div class="media-size">48 MB · Video</div></div>
       </div>
       <div class="media-card media-pick-card" onclick="selectMedia(this,'bmw-logo.svg','12 KB · Vector')">
-        <div class="media-thumb" style="background:#f1f5f9">🔵</div>
-        <div class="media-info"><div class="media-name">bmw-logo.svg</div><div class="media-size">12 KB</div></div>
+        <div class="media-thumb" style="height:90px;background:#f1f5f9">🔵</div>
+        <div class="media-info"><div class="media-name">bmw-logo.svg</div><div class="media-size">12 KB · SVG</div></div>
       </div>
       <div class="media-card media-pick-card" onclick="selectMedia(this,'x5-road.jpg','1.8 MB · 1200×800')">
-        <div class="media-thumb" style="background:linear-gradient(135deg,#2d6a4f,#1b4332)">🚙</div>
-        <div class="media-info"><div class="media-name">x5-road.jpg</div><div class="media-size">1.8 MB</div></div>
+        <div class="media-thumb" style="height:90px;background:linear-gradient(135deg,#2d6a4f,#1b4332)">🚙</div>
+        <div class="media-info"><div class="media-name">x5-road.jpg</div><div class="media-size">1.8 MB · 1200×800</div></div>
+      </div>
+      <div class="media-card media-pick-card" onclick="selectMedia(this,'m5-profile.jpg','2.1 MB · 1600×900')">
+        <div class="media-thumb" style="height:90px;background:linear-gradient(135deg,#3d2b1f,#6b3a2a)">🚗</div>
+        <div class="media-info"><div class="media-name">m5-profile.jpg</div><div class="media-size">2.1 MB · 1600×900</div></div>
+      </div>
+      <div class="media-card media-pick-card" onclick="selectMedia(this,'ix-electric.jpg','1.6 MB · 1200×800')">
+        <div class="media-thumb" style="height:90px;background:linear-gradient(135deg,#1a3a4a,#0d5c6e)">⚡</div>
+        <div class="media-info"><div class="media-name">ix-electric.jpg</div><div class="media-size">1.6 MB · 1200×800</div></div>
       </div>
     </div>
     <div class="modal-footer" style="justify-content:space-between">
-      <div id="media-selected-label" style="font-size:12px;color:var(--text-3)">No file selected</div>
+      <div id="media-selected-label" style="font-size:12px;color:var(--text-3);display:flex;align-items:center;gap:6px">
+        <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        No file selected
+      </div>
       <div style="display:flex;gap:8px">
         <button class="btn btn-ghost" onclick="closeAllModals()">Cancel</button>
-        <button class="btn btn-primary" id="media-confirm-btn" onclick="confirmMedia()" disabled style="opacity:.5;cursor:not-allowed">Insert</button>
+        <button class="btn btn-primary" id="media-confirm-btn" onclick="confirmMedia()" disabled style="opacity:.5;cursor:not-allowed">Choose</button>
       </div>
     </div>
   </div>
 
-
+  <div class="modal" id="modal-add-gen" style="display:none">
     <div class="modal-header"><div class="modal-title">Add Generation</div><button class="modal-close" onclick="closeAllModals()">✕</button></div>
     <div class="form-grid">
       <div class="form-group"><label>Generation Name</label><input type="text" placeholder="e.g. BMW M4 G82 CS"></div>

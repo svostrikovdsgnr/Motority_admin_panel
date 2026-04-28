@@ -95,6 +95,7 @@ function openModelEditor(name){
     document.getElementById('model-modal-title').textContent='Edit Model — '+name;
     document.getElementById('model-name-input').value=name;
   },50);
+}
 
 let toastTimer;
 function showToast(msg){
