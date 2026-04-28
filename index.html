@@ -73,7 +73,17 @@
 
 <div id="main">
   <div id="topbar">
-    <div class="topbar-title" id="topbar-title">Dashboard</div>
+    <div id="topbar-nav" style="display:flex;align-items:center;gap:0">
+      <!-- Back button — hidden by default, shown on sub-pages -->
+      <button id="topbar-back" onclick="navBack()" style="display:none;align-items:center;gap:6px;background:none;border:none;cursor:pointer;color:var(--text-3);font-size:13px;font-weight:600;font-family:DM Sans,sans-serif;padding:0 12px 0 0;margin-right:4px;transition:color .15s" onmouseenter="this.style.color='var(--text)'" onmouseleave="this.style.color='var(--text-3)'">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      </button>
+      <div id="topbar-breadcrumb" style="display:flex;align-items:center;gap:6px;font-size:13px">
+        <span id="topbar-parent" style="color:var(--text-3);font-weight:500;display:none;cursor:pointer" onclick="navBack()"></span>
+        <span id="topbar-sep" style="color:var(--border2);display:none">/</span>
+        <span id="topbar-title" style="color:var(--text);font-weight:600;font-size:15px">Dashboard</span>
+      </div>
+    </div>
     <div class="topbar-right">
       <div class="live-badge">Live</div>
       <button class="btn-icon" onclick="nav('notifications')" title="Notifications">
@@ -439,16 +449,16 @@
         <div id="catalog-models">
           <div class="section-header" style="border-top:1px solid var(--border)">
             <div><div class="section-title">BMW Models</div><div class="section-sub">47 models · 134 generations total</div></div>
-            <button class="btn btn-primary btn-sm" onclick="openModal('add-model')">+ Add Model</button>
+            <button class="btn btn-primary btn-sm" onclick="openModelPage('new')">+ Add Model</button>
           </div>
           <table>
             <thead><tr><th>Model Name</th><th>Years</th><th>Generations</th><th>Logbooks</th><th>Actions</th></tr></thead>
             <tbody>
-              <tr style="cursor:pointer" onclick="openModelEditor('BMW M4')"><td><div class="cell-name">BMW M4</div></td><td style="color:var(--text-3)">2014 – Present</td><td>3</td><td><span class="badge badge-green">284</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModal('add-model')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW M4 deleted')">Delete</button></div></td></tr>
-              <tr style="cursor:pointer" onclick="openModelEditor('BMW M3')"><td><div class="cell-name">BMW M3</div></td><td style="color:var(--text-3)">1986 – Present</td><td>6</td><td><span class="badge badge-green">412</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModal('add-model')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW M3 deleted')">Delete</button></div></td></tr>
-              <tr style="cursor:pointer" onclick="openModelEditor('BMW X5')"><td><div class="cell-name">BMW X5</div></td><td style="color:var(--text-3)">1999 – Present</td><td>4</td><td><span class="badge badge-green">634</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModal('add-model')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW X5 deleted')">Delete</button></div></td></tr>
-              <tr style="cursor:pointer" onclick="openModelEditor('BMW 3 Series')"><td><div class="cell-name">BMW 3 Series</div></td><td style="color:var(--text-3)">1975 – Present</td><td>8</td><td><span class="badge badge-green">1,204</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModal('add-model')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW 3 Series deleted')">Delete</button></div></td></tr>
-              <tr style="cursor:pointer" onclick="openModelEditor('BMW iX')"><td><div class="cell-name">BMW iX</div></td><td style="color:var(--text-3)">2021 – Present</td><td>1</td><td><span class="badge badge-yellow">47</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModal('add-model')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW iX deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelPage('BMW M4')"><td><div class="cell-name">BMW M4</div></td><td style="color:var(--text-3)">2014 – Present</td><td>3</td><td><span class="badge badge-green">284</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModelPage('BMW M4')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW M4 deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelPage('BMW M3')"><td><div class="cell-name">BMW M3</div></td><td style="color:var(--text-3)">1986 – Present</td><td>6</td><td><span class="badge badge-green">412</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModelPage('BMW M3')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW M3 deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelPage('BMW X5')"><td><div class="cell-name">BMW X5</div></td><td style="color:var(--text-3)">1999 – Present</td><td>4</td><td><span class="badge badge-green">634</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModelPage('BMW X5')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW X5 deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelPage('BMW 3 Series')"><td><div class="cell-name">BMW 3 Series</div></td><td style="color:var(--text-3)">1975 – Present</td><td>8</td><td><span class="badge badge-green">1,204</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModelPage('BMW 3 Series')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW 3 Series deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelPage('BMW iX')"><td><div class="cell-name">BMW iX</div></td><td style="color:var(--text-3)">2021 – Present</td><td>1</td><td><span class="badge badge-yellow">47</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModelPage('BMW iX')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW iX deleted')">Delete</button></div></td></tr>
             </tbody>
           </table>
         </div>
@@ -466,6 +476,207 @@
             </tbody>
           </table>
         </div>
+      </div>
+    </div>
+
+    <!-- MODEL EDITOR PAGE -->
+    <div class="view" id="v-model-editor">
+      <div class="model-editor-layout">
+
+        <!-- LEFT COLUMN -->
+        <div class="model-editor-main">
+
+          <div class="section-card">
+            <div class="section-header">
+              <div><div class="section-title">Basic Information</div></div>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Model Name</label>
+                <input type="text" id="me-name" placeholder="e.g. BMW M4">
+              </div>
+              <div class="form-group">
+                <label>Production Years</label>
+                <input type="text" id="me-years" placeholder="e.g. 2014 – Present">
+              </div>
+              <div class="form-group">
+                <label>Body Type</label>
+                <select id="me-body">
+                  <option value="">— Select —</option>
+                  <option>Sedan</option><option>Coupe</option><option>SAV</option>
+                  <option>Convertible</option><option>Roadster</option><option>Touring</option>
+                  <option>Compact</option><option>Hatchback</option><option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Power Type</label>
+                <select id="me-power">
+                  <option value="">— Select —</option>
+                  <option>Combustion</option><option>Electric</option>
+                  <option>Hybrid</option><option>Plug-in Hybrid</option>
+                </select>
+              </div>
+              <div class="form-group full">
+                <label>Description</label>
+                <textarea id="me-desc" rows="5" placeholder="Describe this model — its history, key features, generations overview..."></textarea>
+                <div style="font-size:11px;color:var(--text-3);margin-top:4px">Markdown supported</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Image -->
+          <div class="section-card">
+            <div class="section-header">
+              <div><div class="section-title">Main Image</div><div class="section-sub">Primary photo shown in the catalog grid and model card</div></div>
+            </div>
+            <div class="hero-media-section">
+              <div class="hero-media-row">
+                <div class="upload-zone hero-upload" onclick="showToast('📁 File picker opened')">
+                  <div class="upload-icon">🖼️</div>
+                  <div class="upload-text">Drop image or click to upload</div>
+                  <div class="upload-hint">JPG / WebP · min 800×533 · max 5MB</div>
+                </div>
+                <div class="hero-media-or">or</div>
+                <button class="btn btn-ghost hero-media-pick" onclick="openModal('pick-media')">
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                  Choose from Media Library
+                </button>
+              </div>
+              <div class="hero-current-media" id="me-main-img-preview" style="display:none">
+                <div class="hero-current-thumb" style="background:linear-gradient(135deg,#1e3a5f,#0f3460)">🏎️</div>
+                <div><div class="hero-current-name">hero-main.jpg</div><div class="hero-current-meta">2.4 MB · 1600×900</div></div>
+                <button class="hero-current-remove" onclick="this.closest('.hero-current-media').style.display='none';showToast('🗑️ Image removed')">
+                  <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+              </div>
+            </div>
+            <div style="height:20px"></div>
+          </div>
+
+          <!-- Gallery -->
+          <div class="section-card">
+            <div class="section-header">
+              <div><div class="section-title">Gallery</div><div class="section-sub">Additional photos on the model detail page</div></div>
+              <button class="btn btn-ghost btn-sm" onclick="openModal('pick-media')">+ Add from Library</button>
+            </div>
+            <div class="gallery-grid" id="me-gallery">
+              <div class="gallery-item">
+                <div class="gallery-thumb" style="background:linear-gradient(135deg,#2d3748,#1a202c)">🚗</div>
+                <button class="gallery-remove" onclick="this.parentElement.remove();showToast('🗑️ Photo removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+              </div>
+              <div class="gallery-item">
+                <div class="gallery-thumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">🚗</div>
+                <button class="gallery-remove" onclick="this.parentElement.remove();showToast('🗑️ Photo removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+              </div>
+              <div class="gallery-item">
+                <div class="gallery-thumb" style="background:linear-gradient(135deg,#2d6a4f,#1b4332)">🏎️</div>
+                <button class="gallery-remove" onclick="this.parentElement.remove();showToast('🗑️ Photo removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+              </div>
+              <div class="gallery-add" onclick="showToast('📁 File picker opened')">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+                <span>Upload</span>
+              </div>
+            </div>
+            <div style="padding:0 20px 16px;font-size:11px;color:var(--text-3)">Drag to reorder · JPG, WebP · max 5MB each</div>
+          </div>
+
+          <!-- External Links -->
+          <div class="section-card">
+            <div class="section-header">
+              <div><div class="section-title">External Links</div><div class="section-sub">CTA buttons shown on the model page</div></div>
+            </div>
+            <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+              <div class="ext-link-row">
+                <div class="ext-link-icon" style="background:rgba(34,197,94,.12);color:var(--green)">🛒</div>
+                <div class="ext-link-fields">
+                  <label>Buy Car</label>
+                  <input type="url" placeholder="https://bmw.com/buy/...">
+                </div>
+              </div>
+              <div class="ext-link-row">
+                <div class="ext-link-icon" style="background:rgba(234,179,8,.12);color:var(--yellow)">🔧</div>
+                <div class="ext-link-fields">
+                  <label>Buy Parts</label>
+                  <input type="url" placeholder="https://bmwparts.com/...">
+                </div>
+              </div>
+              <div class="ext-link-row">
+                <div class="ext-link-icon" style="background:var(--accent-bg);color:var(--accent-light)">🌐</div>
+                <div class="ext-link-fields">
+                  <label>Official Site</label>
+                  <input type="url" placeholder="https://bmw.com/...">
+                </div>
+              </div>
+              <div id="me-custom-links"></div>
+              <button class="btn btn-ghost btn-sm" style="align-self:flex-start" onclick="addCustomLink()">
+                <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Add custom link
+              </button>
+            </div>
+          </div>
+
+        </div><!-- /model-editor-main -->
+
+        <!-- RIGHT SIDEBAR -->
+        <div class="model-editor-sidebar">
+
+          <div class="section-card">
+            <div class="section-header" style="padding:14px 16px"><div class="section-title" style="font-size:13px">Publish</div></div>
+            <div style="padding:14px 16px;display:flex;flex-direction:column;gap:12px">
+              <div class="toggle-group">
+                <div class="toggle on" onclick="this.classList.toggle('on');showToast('👁️ Visibility updated')"></div>
+                <label>Visible on landing</label>
+              </div>
+              <div style="height:1px;background:var(--border)"></div>
+              <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="showToast('✅ Model saved')">Save Model</button>
+              <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="navBack()">Cancel</button>
+            </div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header" style="padding:14px 16px"><div class="section-title" style="font-size:13px">Series</div></div>
+            <div style="padding:14px 16px">
+              <select style="width:100%">
+                <option>— Select series —</option>
+                <option>1 Series</option><option>2 Series</option><option>3 Series</option>
+                <option>4 Series</option><option>5 Series</option><option>6 Series</option>
+                <option>7 Series</option><option>X Series</option>
+                <option>M Division</option><option>i Series (Electric)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header" style="padding:14px 16px"><div class="section-title" style="font-size:13px">Decade</div></div>
+            <div style="padding:14px 16px;display:flex;flex-wrap:wrap;gap:6px">
+              <span class="chip" style="font-size:11px;padding:3px 10px" onclick="this.classList.toggle('active')">1960s</span>
+              <span class="chip" style="font-size:11px;padding:3px 10px" onclick="this.classList.toggle('active')">1970s</span>
+              <span class="chip" style="font-size:11px;padding:3px 10px" onclick="this.classList.toggle('active')">1980s</span>
+              <span class="chip" style="font-size:11px;padding:3px 10px" onclick="this.classList.toggle('active')">1990s</span>
+              <span class="chip" style="font-size:11px;padding:3px 10px" onclick="this.classList.toggle('active')">2000s</span>
+              <span class="chip" style="font-size:11px;padding:3px 10px" onclick="this.classList.toggle('active')">2010s</span>
+              <span class="chip active" style="font-size:11px;padding:3px 10px" onclick="this.classList.toggle('active')">2020s</span>
+            </div>
+          </div>
+
+          <div class="section-card" id="me-meta-card">
+            <div class="section-header" style="padding:14px 16px"><div class="section-title" style="font-size:13px">Info</div></div>
+            <div style="padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;justify-content:space-between;font-size:12px">
+                <span style="color:var(--text-3)">Generations</span><span style="font-weight:600">3</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:12px">
+                <span style="color:var(--text-3)">Logbooks</span><span style="font-weight:600">284</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:12px">
+                <span style="color:var(--text-3)">Last edited</span><span style="color:var(--text-3)">2h ago</span>
+              </div>
+              <div style="height:1px;background:var(--border);margin:4px 0"></div>
+              <button class="btn btn-danger btn-sm" style="width:100%;justify-content:center" onclick="showToast('🗑️ Model deleted')">Delete Model</button>
+            </div>
+          </div>
+
+        </div><!-- /sidebar -->
       </div>
     </div>
 
