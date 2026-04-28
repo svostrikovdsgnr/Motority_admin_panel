@@ -378,7 +378,7 @@
               <div><div class="section-title">Models on Landing</div><div class="section-sub">47 models visible</div></div>
               <div class="actions">
                 <button class="btn btn-ghost btn-sm" onclick="nav('catalog')">Manage in Catalog</button>
-                <button class="btn btn-primary btn-sm" onclick="openModal('add-model')">+ Add Model</button>
+                <button class="btn btn-primary btn-sm" onclick="navAddModel()">+ Add Model</button>
               </div>
             </div>
             <table>
@@ -439,16 +439,16 @@
         <div id="catalog-models">
           <div class="section-header" style="border-top:1px solid var(--border)">
             <div><div class="section-title">BMW Models</div><div class="section-sub">47 models · 134 generations total</div></div>
-            <button class="btn btn-primary btn-sm" onclick="openModal('add-model')">+ Add Model</button>
+            <button class="btn btn-primary btn-sm" onclick="navAddModel()">+ Add Model</button>
           </div>
           <table>
             <thead><tr><th>Model Name</th><th>Years</th><th>Generations</th><th>Logbooks</th><th>Actions</th></tr></thead>
             <tbody>
-              <tr style="cursor:pointer" onclick="openModelEditor('BMW M4')"><td><div class="cell-name">BMW M4</div></td><td style="color:var(--text-3)">2014 – Present</td><td>3</td><td><span class="badge badge-green">284</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModal('add-model')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW M4 deleted')">Delete</button></div></td></tr>
-              <tr style="cursor:pointer" onclick="openModelEditor('BMW M3')"><td><div class="cell-name">BMW M3</div></td><td style="color:var(--text-3)">1986 – Present</td><td>6</td><td><span class="badge badge-green">412</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModal('add-model')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW M3 deleted')">Delete</button></div></td></tr>
-              <tr style="cursor:pointer" onclick="openModelEditor('BMW X5')"><td><div class="cell-name">BMW X5</div></td><td style="color:var(--text-3)">1999 – Present</td><td>4</td><td><span class="badge badge-green">634</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModal('add-model')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW X5 deleted')">Delete</button></div></td></tr>
-              <tr style="cursor:pointer" onclick="openModelEditor('BMW 3 Series')"><td><div class="cell-name">BMW 3 Series</div></td><td style="color:var(--text-3)">1975 – Present</td><td>8</td><td><span class="badge badge-green">1,204</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModal('add-model')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW 3 Series deleted')">Delete</button></div></td></tr>
-              <tr style="cursor:pointer" onclick="openModelEditor('BMW iX')"><td><div class="cell-name">BMW iX</div></td><td style="color:var(--text-3)">2021 – Present</td><td>1</td><td><span class="badge badge-yellow">47</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModal('add-model')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW iX deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelEditor('BMW M4')"><td><div class="cell-name">BMW M4</div></td><td style="color:var(--text-3)">2014 – Present</td><td>3</td><td><span class="badge badge-green">284</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();navAddModel('BMW M4')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW M4 deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelEditor('BMW M3')"><td><div class="cell-name">BMW M3</div></td><td style="color:var(--text-3)">1986 – Present</td><td>6</td><td><span class="badge badge-green">412</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();navAddModel('BMW M3')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW M3 deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelEditor('BMW X5')"><td><div class="cell-name">BMW X5</div></td><td style="color:var(--text-3)">1999 – Present</td><td>4</td><td><span class="badge badge-green">634</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();navAddModel('BMW X5')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW X5 deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelEditor('BMW 3 Series')"><td><div class="cell-name">BMW 3 Series</div></td><td style="color:var(--text-3)">1975 – Present</td><td>8</td><td><span class="badge badge-green">1,204</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();navAddModel('BMW 3 Series')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW 3 Series deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelEditor('BMW iX')"><td><div class="cell-name">BMW iX</div></td><td style="color:var(--text-3)">2021 – Present</td><td>1</td><td><span class="badge badge-yellow">47</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();navAddModel('BMW iX')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW iX deleted')">Delete</button></div></td></tr>
             </tbody>
           </table>
         </div>
@@ -469,6 +469,72 @@
       </div>
     </div>
 
+<!-- ADD / EDIT MODEL PAGE -->
+<div class="view" id="v-add-model">
+  <div class="page-header">
+    <button class="btn btn-ghost btn-sm page-back-btn" onclick="nav('catalog')">
+      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to Catalog
+    </button>
+    <div class="page-header-title" id="add-model-page-title">Add New Model</div>
+    <div class="page-header-actions">
+      <button class="btn btn-ghost" onclick="nav('catalog')">Cancel</button>
+      <button class="btn btn-primary" onclick="nav('catalog');showToast('✅ Model saved successfully')">Save Model</button>
+    </div>
+  </div>
+
+  <div class="section-card" style="margin-bottom:16px">
+    <div class="section-header">
+      <div><div class="section-title">Basic Information</div><div class="section-sub">Core model identity and classification</div></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group full"><label>Model Name</label><input type="text" id="add-model-name" placeholder="e.g. BMW M4"></div>
+      <div class="form-group"><label>Production Year — From</label><input type="number" placeholder="e.g. 2021" min="1900" max="2099"></div>
+      <div class="form-group"><label>Production Year — To</label><input type="text" placeholder="e.g. Present or 2024"></div>
+      <div class="form-group"><label>Series / Model Line</label><input type="text" placeholder="e.g. M Series, X Series, i Series"></div>
+      <div class="form-group"><label>Body Type</label><select><option value="">— Select —</option><option>Sedan</option><option>Coupe</option><option>SAV</option><option>Convertible</option><option>Touring</option><option>Hatchback</option><option>Roadster</option></select></div>
+      <div class="form-group"><label>Powertrain</label><select><option value="">— Select —</option><option>Combustion</option><option>Electric</option><option>Hybrid</option><option>Plug-in Hybrid</option></select></div>
+      <div class="form-group"><div class="toggle-group"><div class="toggle on" onclick="this.classList.toggle('on')"></div><label>Visible on Landing Page</label></div></div>
+      <div class="form-group"><div class="toggle-group"><div class="toggle" onclick="this.classList.toggle('on')"></div><label>Featured / Highlighted Model</label></div></div>
+    </div>
+  </div>
+
+  <div class="section-card" style="margin-bottom:16px">
+    <div class="section-header">
+      <div><div class="section-title">Descriptions</div><div class="section-sub">Text content shown to visitors</div></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group full"><label>Short Description <span style="font-weight:400;color:var(--text-3)">— shown in model cards (~150 chars)</span></label><textarea rows="2" placeholder="Brief summary shown on listing cards..."></textarea></div>
+      <div class="form-group full"><label>Full Description <span style="font-weight:400;color:var(--text-3)">— shown on model detail page</span></label><textarea rows="5" placeholder="Detailed description of the model, its history, key characteristics..."></textarea></div>
+      <div class="form-group full"><label>Key Highlights <span style="font-weight:400;color:var(--text-3)">— up to 3 selling points</span></label><div style="display:flex;flex-direction:column;gap:8px"><input type="text" placeholder="Highlight 1 — e.g. S58 twin-turbo engine, 510 hp"><input type="text" placeholder="Highlight 2 — e.g. M xDrive all-wheel drive"><input type="text" placeholder="Highlight 3 — e.g. Available as Convertible or Coupe"></div></div>
+    </div>
+  </div>
+
+  <div class="section-card" style="margin-bottom:16px">
+    <div class="section-header">
+      <div><div class="section-title">Media</div><div class="section-sub">Images for the catalog and landing page</div></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group full"><label>Main Hero Image <span style="font-weight:400;color:var(--text-3)">— large format, landing page</span></label><div class="hero-media-row" style="margin-top:4px"><div class="upload-zone hero-upload" onclick="showToast('📁 File picker opened')"><div class="upload-icon">🖼️</div><div class="upload-text">Upload hero image</div><div class="upload-hint">JPG, WebP · 1600×900 · max 8MB</div></div><div class="hero-media-or">or</div><button class="btn btn-ghost hero-media-pick" onclick="openModal('pick-media')">Choose from Library</button></div></div>
+      <div class="form-group"><label>Catalog Thumbnail <span style="font-weight:400;color:var(--text-3)">— model card image</span></label><div class="upload-zone" style="padding:24px" onclick="showToast('📁 File picker opened')"><div class="upload-icon">🖼️</div><div class="upload-text">Upload thumbnail</div><div class="upload-hint">JPG, WebP · 800×533 · max 5MB</div></div></div>
+      <div class="form-group"><label>Detail / Background Image <span style="font-weight:400;color:var(--text-3)">— optional</span></label><div class="upload-zone" style="padding:24px" onclick="showToast('📁 File picker opened')"><div class="upload-icon">🌄</div><div class="upload-text">Upload detail image</div><div class="upload-hint">JPG, WebP · max 5MB</div></div></div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="section-header">
+      <div><div class="section-title">External Links</div><div class="section-sub">Links shown on the model page for visitors</div></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-group"><label>Buy / Configure</label><input type="url" placeholder="https://bmw.com/configure/m4"></div>
+      <div class="form-group"><label>Official Brand Page</label><input type="url" placeholder="https://bmw.com/m4"></div>
+      <div class="form-group"><label>Accessories / Parts Store</label><input type="url" placeholder="https://bmw-parts.com/..."></div>
+      <div class="form-group"><label>Press Kit / Media Release</label><input type="url" placeholder="https://pressclub.bmwgroup.com/..."></div>
+    </div>
+  </div>
+</div>
+<!-- END ADD MODEL PAGE -->
+    
     <!-- MEDIA -->
     <div class="view" id="v-media">
       <div class="section-card">
@@ -646,22 +712,6 @@
 
   </div>
 </div>
-
-<!-- MODALS -->
-<div class="modal-overlay" id="modal-overlay" onclick="closeModal(event)">
-  <div class="modal" id="modal-add-model" style="display:none">
-    <div class="modal-header"><div class="modal-title" id="model-modal-title">Add Model</div><button class="modal-close" onclick="closeAllModals()">✕</button></div>
-    <div class="form-grid">
-      <div class="form-group"><label>Model Name</label><input type="text" id="model-name-input" placeholder="e.g. BMW M5"></div>
-      <div class="form-group"><label>Production Years</label><input type="text" placeholder="e.g. 2021 – Present"></div>
-      <div class="form-group full"><label>Description</label><textarea rows="3" placeholder="Model description..."></textarea></div>
-      <div class="form-group"><label>Body Type</label><select><option>Sedan</option><option>Coupe</option><option>SAV</option><option>Convertible</option><option>Touring</option></select></div>
-      <div class="form-group"><label>Power Type</label><select><option>Combustion</option><option>Electric</option><option>Hybrid</option></select></div>
-      <div class="form-group full"><label>Main Image</label><div class="upload-zone" onclick="showToast('📁 File picker opened')"><div class="upload-icon">🖼️</div><div class="upload-text">Upload model image</div><div class="upload-hint">JPG, WebP · max 5MB</div></div></div>
-      <div class="form-group full"><label>External Links</label><div style="display:flex;flex-direction:column;gap:8px"><input type="url" placeholder="Buy car link"><input type="url" placeholder="Official site link"><input type="url" placeholder="Configurator link"></div></div>
-    </div>
-    <div class="modal-footer"><button class="btn btn-ghost" onclick="closeAllModals()">Cancel</button><button class="btn btn-primary" onclick="closeAllModals();showToast('✅ Model saved successfully')">Save Model</button></div>
-  </div>
 
   <div class="modal" id="modal-edit-gen" style="display:none">
     <div class="modal-header"><div class="modal-title">Edit Generation — BMW M4 G82</div><button class="modal-close" onclick="closeAllModals()">✕</button></div>
