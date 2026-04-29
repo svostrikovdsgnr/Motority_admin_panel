@@ -314,7 +314,15 @@ body.is-light .theme-pill{transform:translateX(100%)}
   align-items:start;
 }
 .model-editor-main{display:flex;flex-direction:column;gap:0}
-.model-editor-sidebar{display:flex;flex-direction:column;gap:0;position:sticky;top:0}
+.model-editor-sidebar{
+  display:flex;flex-direction:column;gap:0;
+  position:sticky;top:0;
+  /* ensure sidebar doesn't cause overflow */
+  max-height:calc(100vh - var(--topbar-h) - 48px);
+  overflow-y:auto;
+}
+.model-editor-sidebar .section-card{margin-bottom:12px}
+.model-editor-sidebar .section-card:last-child{margin-bottom:0}
 
 /* Gallery grid */
 .gallery-grid{

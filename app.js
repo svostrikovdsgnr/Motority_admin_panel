@@ -95,6 +95,81 @@ function switchCatalogTab(tab){
     t.classList.toggle('active',(i===0&&tab==='models')||(i===1&&tab==='gen')));
   document.getElementById('catalog-models').style.display=tab==='models'?'':'none';
   document.getElementById('catalog-gen').style.display=tab==='gen'?'':'none';
+  // reset model selector when switching to generations tab
+  if(tab==='gen'){
+    const sel=document.getElementById('gen-model-filter');
+    if(sel && !sel.value) filterGenerations('');
+  }
+}
+
+/* ── GENERATIONS MODEL FILTER ── */
+const _genData={
+  'BMW M4':[
+    {name:'BMW M4 G82',years:'2020 – Present',logbooks:147,badge:'badge-green'},
+    {name:'BMW M4 F82',years:'2014 – 2020',logbooks:98,badge:'badge-green'},
+    {name:'BMW M4 CS (G82)',years:'2022 – Present',logbooks:39,badge:'badge-yellow'},
+  ],
+  'BMW M3':[
+    {name:'BMW M3 G80',years:'2020 – Present',logbooks:203,badge:'badge-green'},
+    {name:'BMW M3 F80',years:'2014 – 2020',logbooks:189,badge:'badge-green'},
+    {name:'BMW M3 E92',years:'2007 – 2013',logbooks:97,badge:'badge-green'},
+    {name:'BMW M3 E46',years:'2000 – 2006',logbooks:74,badge:'badge-yellow'},
+    {name:'BMW M3 E36',years:'1992 – 1999',logbooks:38,badge:'badge-yellow'},
+    {name:'BMW M3 E30',years:'1986 – 1991',logbooks:21,badge:'badge-gray'},
+  ],
+  'BMW X5':[
+    {name:'BMW X5 G05',years:'2018 – Present',logbooks:312,badge:'badge-green'},
+    {name:'BMW X5 F15',years:'2013 – 2018',logbooks:187,badge:'badge-green'},
+    {name:'BMW X5 E70',years:'2006 – 2013',logbooks:96,badge:'badge-yellow'},
+    {name:'BMW X5 E53',years:'1999 – 2006',logbooks:39,badge:'badge-yellow'},
+  ],
+  'BMW 3 Series':[
+    {name:'BMW 3 Series G20',years:'2018 – Present',logbooks:487,badge:'badge-green'},
+    {name:'BMW 3 Series G20 LCI',years:'2022 – Present',logbooks:214,badge:'badge-green'},
+    {name:'BMW 3 Series F30',years:'2011 – 2018',logbooks:321,badge:'badge-green'},
+    {name:'BMW 3 Series E90',years:'2005 – 2011',logbooks:156,badge:'badge-yellow'},
+    {name:'BMW 3 Series E46',years:'1998 – 2006',logbooks:98,badge:'badge-yellow'},
+    {name:'BMW 3 Series E36',years:'1990 – 1998',logbooks:47,badge:'badge-gray'},
+    {name:'BMW 3 Series E30',years:'1982 – 1994',logbooks:28,badge:'badge-gray'},
+    {name:'BMW 3 Series E21',years:'1975 – 1983',logbooks:12,badge:'badge-gray'},
+  ],
+  'BMW iX':[
+    {name:'BMW iX i20',years:'2021 – Present',logbooks:47,badge:'badge-yellow'},
+  ],
+};
+
+function filterGenerations(model){
+  const empty=document.getElementById('gen-empty-state');
+  const tableWrap=document.getElementById('gen-table-wrap');
+  const tbody=document.getElementById('gen-table-body');
+  const title=document.getElementById('gen-table-title');
+  const countBadge=document.getElementById('gen-count-badge');
+  const countText=document.getElementById('gen-count-text');
+
+  if(!model){
+    empty.style.display='';
+    tableWrap.style.display='none';
+    countBadge.style.display='none';
+    return;
+  }
+
+  const gens=_genData[model]||[];
+  empty.style.display='none';
+  tableWrap.style.display='';
+  title.textContent=model+' — Generations';
+  countBadge.style.display='';
+  countText.textContent=gens.length+' generation'+(gens.length!==1?'s':'');
+
+  tbody.innerHTML=gens.map(g=>`
+    <tr style="cursor:pointer" onclick="openGenPage('${g.name.replace(/'/g,"\\'")}','${model.replace(/'/g,"\\'")}')">
+      <td><div class="cell-name">${g.name}</div></td>
+      <td style="color:var(--text-3)">${g.years}</td>
+      <td><span class="badge ${g.badge}">${g.logbooks}</span></td>
+      <td><div class="actions">
+        <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openGenPage('${g.name.replace(/'/g,"\\'")}','${model.replace(/'/g,"\\'")}')">Edit</button>
+        <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ ${g.name} deleted')">Delete</button>
+      </div></td>
+    </tr>`).join('');
 }
 
 /* ── CHIPS ── */

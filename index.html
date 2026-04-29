@@ -463,18 +463,40 @@
           </table>
         </div>
         <div id="catalog-gen" style="display:none">
-          <div class="section-header" style="border-top:1px solid var(--border)">
-            <div><div class="section-title">BMW M4 — Generations</div></div>
-            <button class="btn btn-primary btn-sm" onclick="openGenPage('new','BMW M4')">+ Add Generation</button>
+          <!-- Model selector -->
+          <div style="padding:16px 20px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:var(--surface2);display:flex;align-items:center;gap:16px">
+            <label style="font-size:12px;font-weight:600;color:var(--text-2);white-space:nowrap">Model</label>
+            <select id="gen-model-filter" onchange="filterGenerations(this.value)" style="max-width:280px">
+              <option value="">— Select a model —</option>
+              <option value="BMW M4">BMW M4</option>
+              <option value="BMW M3">BMW M3</option>
+              <option value="BMW X5">BMW X5</option>
+              <option value="BMW 3 Series">BMW 3 Series</option>
+              <option value="BMW iX">BMW iX</option>
+            </select>
+            <div id="gen-count-badge" style="display:none">
+              <span class="badge badge-gray" id="gen-count-text">0 generations</span>
+            </div>
           </div>
-          <table>
-            <thead><tr><th>Generation</th><th>Years</th><th>Logbooks</th><th>Actions</th></tr></thead>
-            <tbody>
-              <tr style="cursor:pointer" onclick="openGenPage('BMW M4 G82','BMW M4')"><td><div class="cell-name">BMW M4 G82</div></td><td style="color:var(--text-3)">2020 – Present</td><td><span class="badge badge-green">147</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openGenPage('BMW M4 G82','BMW M4')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ Generation deleted')">Delete</button></div></td></tr>
-              <tr style="cursor:pointer" onclick="openGenPage('BMW M4 F82','BMW M4')"><td><div class="cell-name">BMW M4 F82</div></td><td style="color:var(--text-3)">2014 – 2020</td><td><span class="badge badge-green">98</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openGenPage('BMW M4 F82','BMW M4')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ Generation deleted')">Delete</button></div></td></tr>
-              <tr style="cursor:pointer" onclick="openGenPage('BMW M4 CS (G82)','BMW M4')"><td><div class="cell-name">BMW M4 CS (G82)</div></td><td style="color:var(--text-3)">2022 – Present</td><td><span class="badge badge-yellow">39</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openGenPage('BMW M4 CS (G82)','BMW M4')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ Generation deleted')">Delete</button></div></td></tr>
-            </tbody>
-          </table>
+          <!-- Empty state -->
+          <div id="gen-empty-state" style="padding:48px 20px;text-align:center;color:var(--text-3)">
+            <div style="font-size:32px;margin-bottom:12px">📋</div>
+            <div style="font-size:14px;font-weight:600;color:var(--text-2);margin-bottom:4px">Select a model</div>
+            <div style="font-size:13px">Choose a model above to view and manage its generations</div>
+          </div>
+          <!-- Table (hidden until model selected) -->
+          <div id="gen-table-wrap" style="display:none">
+            <div class="section-header" style="border-top:none">
+              <div>
+                <div class="section-title" id="gen-table-title">Generations</div>
+              </div>
+              <button class="btn btn-primary btn-sm" id="gen-add-btn" onclick="openGenPage('new', document.getElementById('gen-model-filter').value)">+ Add Generation</button>
+            </div>
+            <table>
+              <thead><tr><th>Generation</th><th>Years</th><th>Logbooks</th><th>Actions</th></tr></thead>
+              <tbody id="gen-table-body"></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
