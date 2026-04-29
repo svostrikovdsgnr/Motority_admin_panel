@@ -69,8 +69,172 @@ function navBack(){
   nav('catalog');
 }
 
-let _customLinkCount=0;
-function addCustomLink(){
+let _genCustomLinkCount=0;
+function addGenCustomLink(){
+  _genCustomLinkCount++;
+  const wrap=document.getElementById('ge-custom-links');
+  const div=document.createElement('div');
+  div.className='ext-link-custom';
+  div.id='ge-custom-'+_genCustomLinkCount;
+  div.innerHTML=`
+    <div class="ext-link-icon" style="background:var(--surface3);color:var(--text-3)">🔗</div>
+    <div class="ext-link-fields">
+      <label>Custom Link ${_genCustomLinkCount}</label>
+      <input type="url" placeholder="https://...">
+    </div>
+    <button class="ext-link-remove" onclick="document.getElementById('ge-custom-${_genCustomLinkCount}').remove();showToast('🗑️ Link removed')">
+      <svg width="11" height="11" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>`;
+  wrap.appendChild(div);
+}
+
+function openGenPage(genName, parentModel){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('v-gen-editor').classList.add('active');
+  const isNew=genName==='new';
+  const label=isNew?'Add Generation':genName;
+  document.getElementById('topbar-back').style.display='flex';
+  document.getElementById('topbar-parent').style.display='inline';
+  document.getElementById('topbar-parent').textContent='Cars Catalog';
+  document.getElementById('topbar-sep').style.display='inline';
+  document.getElementById('topbar-title').textContent=label;
+  document.getElementById('topbar-title').style.fontSize='14px';
+  navOrder.forEach((n,i)=>document.querySelectorAll('.sb-item')[i]?.classList.remove('active'));
+  document.querySelectorAll('.sb-item')[2]?.classList.add('active');
+  const nameInput=document.getElementById('ge-name');
+  const yearsInput=document.getElementById('ge-years');
+  const modelSel=document.getElementById('ge-model');
+  const descInput=document.getElementById('ge-desc');
+  if(isNew){
+    nameInput.value=''; yearsInput.value=''; descInput.value='';
+    if(parentModel && modelSel){
+      for(let i=0;i<modelSel.options.length;i++){
+        if(modelSel.options[i].text===parentModel){ modelSel.selectedIndex=i; break; }
+      }
+    }
+  } else {
+    nameInput.value=genName;
+    yearsInput.value=genName==='BMW M4 G82'?'2020 – Present':genName==='BMW M4 F82'?'2014 – 2020':'2022 – Present';
+    descInput.value=`${genName} — key generation details with performance updates and engineering refinements over the previous generation.`;
+    if(parentModel && modelSel){
+      for(let i=0;i<modelSel.options.length;i++){
+        if(modelSel.options[i].text===parentModel){ modelSel.selectedIndex=i; break; }
+      }
+    }
+  }
+}
+
+let _modCount=1;
+function addModification(){
+  _modCount++;
+  const id='spec-mod-'+_modCount;
+  const container=document.getElementById('ge-specs-container');
+  const div=document.createElement('div');
+  div.className='spec-modification'; div.id=id;
+  div.innerHTML=`
+    <div class="spec-mod-header">
+      <div class="spec-drag-handle" title="Drag to reorder"><svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="5" r="1.5" fill="currentColor"/><circle cx="15" cy="5" r="1.5" fill="currentColor"/><circle cx="9" cy="12" r="1.5" fill="currentColor"/><circle cx="15" cy="12" r="1.5" fill="currentColor"/><circle cx="9" cy="19" r="1.5" fill="currentColor"/><circle cx="15" cy="19" r="1.5" fill="currentColor"/></svg></div>
+      <div style="flex:1">
+        <div style="font-size:10px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Modification</div>
+        <input type="text" placeholder="e.g. 3.0 AT 480 hp" style="font-size:14px;font-weight:700;background:transparent;border:none;border-bottom:1px solid var(--border2);border-radius:0;padding:2px 0;color:var(--text);width:100%" onfocus="this.style.borderBottomColor='var(--accent)'" onblur="this.style.borderBottomColor='var(--border2)'">
+      </div>
+      <div class="actions">
+        <button class="btn btn-ghost btn-sm" onclick="addGroupToMod('${id}')">+ Group</button>
+        <button class="btn btn-danger btn-sm" onclick="this.closest('.spec-modification').remove();showToast('🗑️ Modification removed')">Remove</button>
+      </div>
+    </div>
+    <div class="spec-groups" id="groups-${id}"></div>`;
+  container.appendChild(div);
+  initDragForContainer(div);
+  showToast('✅ New modification added');
+}
+
+let _grpCount=10;
+function addGroupToMod(modId){
+  _grpCount++;
+  const grpId='spec-grp-'+_grpCount;
+  const container=document.getElementById('groups-'+modId);
+  const div=document.createElement('div');
+  div.className='spec-group'; div.id=grpId;
+  div.innerHTML=`
+    <div class="spec-group-header">
+      <div class="spec-drag-handle spec-drag-handle--sm"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="5" r="1.5" fill="currentColor"/><circle cx="15" cy="5" r="1.5" fill="currentColor"/><circle cx="9" cy="12" r="1.5" fill="currentColor"/><circle cx="15" cy="12" r="1.5" fill="currentColor"/><circle cx="9" cy="19" r="1.5" fill="currentColor"/><circle cx="15" cy="19" r="1.5" fill="currentColor"/></svg></div>
+      <input type="text" placeholder="Group name" class="spec-group-name-input" onfocus="this.style.borderBottomColor='var(--accent)'" onblur="this.style.borderBottomColor='var(--border2)'">
+      <div class="actions" style="margin-left:auto">
+        <button class="btn btn-ghost btn-sm" onclick="addSpecRow(this.closest('.spec-group'))">+ Add row</button>
+        <button class="btn btn-danger btn-sm" onclick="this.closest('.spec-group').remove();showToast('🗑️ Group removed')">Remove</button>
+      </div>
+    </div>
+    <div class="spec-rows"></div>`;
+  container.appendChild(div);
+  initDragForRows(div.querySelector('.spec-rows'));
+  showToast('✅ New group added');
+}
+
+function addSpecRow(groupEl){
+  const rows=groupEl.querySelector('.spec-rows');
+  const div=document.createElement('div');
+  div.className='spec-row';
+  div.innerHTML=`
+    <div class="spec-drag-handle spec-drag-handle--xs"><svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="1.2" fill="currentColor"/><circle cx="15" cy="8" r="1.2" fill="currentColor"/><circle cx="9" cy="16" r="1.2" fill="currentColor"/><circle cx="15" cy="16" r="1.2" fill="currentColor"/></svg></div>
+    <input type="text" placeholder="Characteristic name" class="spec-key">
+    <input type="text" placeholder="Value" class="spec-val">
+    <button class="spec-row-remove" onclick="this.closest('.spec-row').remove();showToast('🗑️ Row removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>`;
+  rows.appendChild(div);
+  div.querySelector('.spec-key').focus();
+}
+
+/* ── DRAG-TO-REORDER ── */
+function initDragForContainer(modEl){
+  const groups=modEl.querySelector('.spec-groups');
+  if(groups) makeSortable(groups, '.spec-group');
+  modEl.querySelectorAll('.spec-rows').forEach(r=>makeSortable(r,'.spec-row'));
+}
+function initDragForRows(rowsEl){ makeSortable(rowsEl,'.spec-row'); }
+
+function makeSortable(container, childSelector){
+  let dragged=null;
+  container.addEventListener('dragstart',e=>{
+    const el=e.target.closest(childSelector);
+    if(!el) return;
+    dragged=el; el.style.opacity='.4';
+    e.dataTransfer.effectAllowed='move';
+  });
+  container.addEventListener('dragend',e=>{
+    if(dragged){ dragged.style.opacity='1'; dragged=null; }
+    container.querySelectorAll(childSelector).forEach(el=>el.classList.remove('drag-over'));
+  });
+  container.addEventListener('dragover',e=>{
+    e.preventDefault();
+    const target=e.target.closest(childSelector);
+    if(!target || target===dragged) return;
+    container.querySelectorAll(childSelector).forEach(el=>el.classList.remove('drag-over'));
+    target.classList.add('drag-over');
+    const rect=target.getBoundingClientRect();
+    const after=e.clientY > rect.top+rect.height/2;
+    if(after) target.after(dragged); else target.before(dragged);
+  });
+  container.querySelectorAll(childSelector).forEach(el=>{
+    el.setAttribute('draggable','true');
+  });
+}
+
+// init existing spec rows on load
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('.spec-groups').forEach(g=>{
+    makeSortable(g,'.spec-group');
+  });
+  document.querySelectorAll('.spec-rows').forEach(r=>{
+    makeSortable(r,'.spec-row');
+  });
+  document.querySelectorAll('.spec-modification').forEach(m=>{
+    const container=m.closest('#ge-specs-container');
+    if(container) makeSortable(container,'.spec-modification');
+  });
+  makeSortable(document.getElementById('ge-specs-container')||document.createElement('div'),'.spec-modification');
+});
+
+
   _customLinkCount++;
   const wrap=document.getElementById('me-custom-links');
   const div=document.createElement('div');

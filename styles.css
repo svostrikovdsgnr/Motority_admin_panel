@@ -371,3 +371,66 @@ body.is-light .theme-pill{transform:translateX(100%)}
   color:var(--text-3);cursor:pointer;display:flex;align-items:center;justify-content:center;
 }
 .ext-link-remove:hover{background:var(--red-bg);border-color:var(--red);color:var(--red)}
+
+/* ── TECHNICAL SPECS EDITOR ──────────────────────── */
+.spec-modification{
+  margin-top:16px;border:1px solid var(--border);
+  border-radius:var(--radius);overflow:hidden;
+}
+.spec-mod-header{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 16px;background:var(--surface2);
+  border-bottom:1px solid var(--border);
+}
+.spec-drag-handle{
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text-3);cursor:grab;padding:2px 4px;
+  border-radius:4px;flex-shrink:0;
+}
+.spec-drag-handle:hover{background:var(--surface3);color:var(--text-2)}
+.spec-drag-handle:active{cursor:grabbing}
+.spec-drag-handle--sm{opacity:.7}
+.spec-drag-handle--xs{opacity:.5}
+.spec-groups{padding:0 16px 12px}
+.spec-group{
+  margin-top:12px;border:1px solid var(--border);
+  border-radius:var(--radius-sm);overflow:hidden;
+}
+.spec-group-header{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 12px;background:var(--surface2);
+  border-bottom:1px solid var(--border);
+}
+.spec-group-name-input{
+  font-size:13px;font-weight:700;background:transparent;
+  border:none;border-bottom:1px solid var(--border2);border-radius:0;
+  padding:1px 0;color:var(--accent-light);flex:1;min-width:0;
+}
+.spec-rows{display:flex;flex-direction:column}
+.spec-row{
+  display:flex;align-items:center;gap:8px;
+  padding:6px 12px;border-bottom:1px solid var(--border);
+  transition:background .12s;
+}
+.spec-row:last-child{border-bottom:none}
+.spec-row:hover{background:var(--surface2)}
+.spec-key{
+  flex:1;font-size:12px;background:transparent;border:none;
+  color:var(--text-2);padding:3px 4px;border-radius:3px;min-width:0;
+}
+.spec-val{
+  flex:1.2;font-size:12px;font-weight:600;background:transparent;
+  border:none;color:var(--text);padding:3px 4px;border-radius:3px;min-width:0;
+}
+.spec-key:focus,.spec-val:focus{background:var(--surface3);outline:none}
+.spec-row-remove{
+  width:20px;height:20px;border-radius:4px;flex-shrink:0;
+  background:none;border:none;color:var(--text-3);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .15s;
+}
+.spec-row:hover .spec-row-remove{opacity:1}
+.spec-row-remove:hover{background:var(--red-bg);color:var(--red)}
+.spec-group.drag-over,.spec-row.drag-over,.spec-modification.drag-over{
+  outline:2px dashed var(--accent);outline-offset:2px;background:var(--accent-bg);
+}

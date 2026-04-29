@@ -465,14 +465,14 @@
         <div id="catalog-gen" style="display:none">
           <div class="section-header" style="border-top:1px solid var(--border)">
             <div><div class="section-title">BMW M4 — Generations</div></div>
-            <button class="btn btn-primary btn-sm" onclick="openModal('add-gen')">+ Add Generation</button>
+            <button class="btn btn-primary btn-sm" onclick="openGenPage('new','BMW M4')">+ Add Generation</button>
           </div>
           <table>
             <thead><tr><th>Generation</th><th>Years</th><th>Logbooks</th><th>Actions</th></tr></thead>
             <tbody>
-              <tr><td><div class="cell-name">BMW M4 G82</div></td><td style="color:var(--text-3)">2020 – Present</td><td><span class="badge badge-green">147</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="openModal('edit-gen')">Edit</button><button class="btn btn-danger btn-sm" onclick="showToast('🗑️ Generation deleted')">Delete</button></div></td></tr>
-              <tr><td><div class="cell-name">BMW M4 F82</div></td><td style="color:var(--text-3)">2014 – 2020</td><td><span class="badge badge-green">98</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="openModal('edit-gen')">Edit</button><button class="btn btn-danger btn-sm" onclick="showToast('🗑️ Generation deleted')">Delete</button></div></td></tr>
-              <tr><td><div class="cell-name">BMW M4 CS (G82)</div></td><td style="color:var(--text-3)">2022 – Present</td><td><span class="badge badge-yellow">39</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="openModal('edit-gen')">Edit</button><button class="btn btn-danger btn-sm" onclick="showToast('🗑️ Generation deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openGenPage('BMW M4 G82','BMW M4')"><td><div class="cell-name">BMW M4 G82</div></td><td style="color:var(--text-3)">2020 – Present</td><td><span class="badge badge-green">147</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openGenPage('BMW M4 G82','BMW M4')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ Generation deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openGenPage('BMW M4 F82','BMW M4')"><td><div class="cell-name">BMW M4 F82</div></td><td style="color:var(--text-3)">2014 – 2020</td><td><span class="badge badge-green">98</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openGenPage('BMW M4 F82','BMW M4')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ Generation deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openGenPage('BMW M4 CS (G82)','BMW M4')"><td><div class="cell-name">BMW M4 CS (G82)</div></td><td style="color:var(--text-3)">2022 – Present</td><td><span class="badge badge-yellow">39</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openGenPage('BMW M4 CS (G82)','BMW M4')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ Generation deleted')">Delete</button></div></td></tr>
             </tbody>
           </table>
         </div>
@@ -677,6 +677,308 @@
           </div>
 
         </div><!-- /sidebar -->
+      </div>
+    </div>
+
+    </div>
+
+    <!-- GENERATION EDITOR PAGE -->
+    <div class="view" id="v-gen-editor">
+      <div class="model-editor-layout">
+
+        <!-- LEFT COLUMN -->
+        <div class="model-editor-main">
+
+          <!-- Basic Info -->
+          <div class="section-card">
+            <div class="section-header">
+              <div><div class="section-title">Basic Information</div></div>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Generation Name</label>
+                <input type="text" id="ge-name" placeholder="e.g. BMW M4 G82">
+              </div>
+              <div class="form-group">
+                <label>Production Years</label>
+                <input type="text" id="ge-years" placeholder="e.g. 2020 – Present">
+              </div>
+              <div class="form-group full">
+                <label>Parent Model</label>
+                <select id="ge-model">
+                  <option value="">— Select model —</option>
+                  <option>BMW M4</option>
+                  <option>BMW M3</option>
+                  <option>BMW X5</option>
+                  <option>BMW 3 Series</option>
+                  <option>BMW iX</option>
+                </select>
+              </div>
+              <div class="form-group full">
+                <label>Description</label>
+                <textarea id="ge-desc" rows="4" placeholder="Describe this generation — key changes, facelift details, performance specs overview..."></textarea>
+                <div style="font-size:11px;color:var(--text-3);margin-top:4px">Markdown supported</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Main Image -->
+          <div class="section-card">
+            <div class="section-header">
+              <div><div class="section-title">Main Image</div><div class="section-sub">Primary photo for this generation</div></div>
+            </div>
+            <div class="hero-media-section">
+              <div class="hero-media-row">
+                <div class="upload-zone hero-upload" onclick="showToast('📁 File picker opened')">
+                  <div class="upload-icon">🖼️</div>
+                  <div class="upload-text">Drop image or click to upload</div>
+                  <div class="upload-hint">JPG / WebP · min 800×533 · max 5MB</div>
+                </div>
+                <div class="hero-media-or">or</div>
+                <button class="btn btn-ghost hero-media-pick" onclick="openModal('pick-media')">
+                  <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                  Choose from Media Library
+                </button>
+              </div>
+            </div>
+            <div style="height:20px"></div>
+          </div>
+
+          <!-- Gallery -->
+          <div class="section-card">
+            <div class="section-header">
+              <div><div class="section-title">Gallery</div><div class="section-sub">Additional photos for this generation</div></div>
+              <button class="btn btn-ghost btn-sm" onclick="openModal('pick-media')">+ Add from Library</button>
+            </div>
+            <div class="gallery-grid">
+              <div class="gallery-item">
+                <div class="gallery-thumb" style="background:linear-gradient(135deg,#1e3a5f,#0f3460)">🏎️</div>
+                <button class="gallery-remove" onclick="this.parentElement.remove();showToast('🗑️ Photo removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+              </div>
+              <div class="gallery-item">
+                <div class="gallery-thumb" style="background:linear-gradient(135deg,#2d3748,#1a202c)">🚗</div>
+                <button class="gallery-remove" onclick="this.parentElement.remove();showToast('🗑️ Photo removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+              </div>
+              <div class="gallery-add" onclick="showToast('📁 File picker opened')">
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+                <span>Upload</span>
+              </div>
+            </div>
+            <div style="padding:0 20px 16px;font-size:11px;color:var(--text-3)">Drag to reorder · JPG, WebP · max 5MB each</div>
+          </div>
+
+          <!-- External Links -->
+          <div class="section-card">
+            <div class="section-header">
+              <div><div class="section-title">External Links</div><div class="section-sub">CTA buttons shown on the generation page</div></div>
+            </div>
+            <div style="padding:20px;display:flex;flex-direction:column;gap:14px">
+              <div class="ext-link-row">
+                <div class="ext-link-icon" style="background:rgba(34,197,94,.12);color:var(--green)">🛒</div>
+                <div class="ext-link-fields"><label>Buy Car</label><input type="url" placeholder="https://bmw.com/buy/..."></div>
+              </div>
+              <div class="ext-link-row">
+                <div class="ext-link-icon" style="background:rgba(234,179,8,.12);color:var(--yellow)">🔧</div>
+                <div class="ext-link-fields"><label>Buy Parts</label><input type="url" placeholder="https://bmwparts.com/..."></div>
+              </div>
+              <div class="ext-link-row">
+                <div class="ext-link-icon" style="background:var(--accent-bg);color:var(--accent-light)">🌐</div>
+                <div class="ext-link-fields"><label>Official Site</label><input type="url" placeholder="https://bmw.com/..."></div>
+              </div>
+              <div id="ge-custom-links"></div>
+              <button class="btn btn-ghost btn-sm" style="align-self:flex-start" onclick="addGenCustomLink()">
+                <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+                Add custom link
+              </button>
+            </div>
+          </div>
+
+          <!-- Technical Specs -->
+          <div class="section-card">
+            <div class="section-header">
+              <div><div class="section-title">Technical Specifications</div><div class="section-sub">Modifications, groups, and individual characteristics</div></div>
+              <div class="actions">
+                <button class="btn btn-ghost btn-sm" onclick="openModal('import-specs')">
+                  <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+                  Import Excel
+                </button>
+                <button class="btn btn-primary btn-sm" onclick="addModification()">+ Add Modification</button>
+              </div>
+            </div>
+
+            <!-- Specs content -->
+            <div id="ge-specs-container" style="padding:0 20px 20px">
+
+              <!-- Modification block -->
+              <div class="spec-modification" id="spec-mod-1">
+                <div class="spec-mod-header">
+                  <div class="spec-drag-handle" title="Drag to reorder">
+                    <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="5" r="1.5" fill="currentColor"/><circle cx="15" cy="5" r="1.5" fill="currentColor"/><circle cx="9" cy="12" r="1.5" fill="currentColor"/><circle cx="15" cy="12" r="1.5" fill="currentColor"/><circle cx="9" cy="19" r="1.5" fill="currentColor"/><circle cx="15" cy="19" r="1.5" fill="currentColor"/></svg>
+                  </div>
+                  <div style="flex:1">
+                    <div style="font-size:10px;color:var(--text-3);font-weight:600;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Modification</div>
+                    <input type="text" value="3.0 AT 510 hp – Competition" style="font-size:14px;font-weight:700;background:transparent;border:none;border-bottom:1px solid var(--border2);border-radius:0;padding:2px 0;color:var(--text)" onfocus="this.style.borderBottomColor='var(--accent)'" onblur="this.style.borderBottomColor='var(--border2)'">
+                  </div>
+                  <div class="actions">
+                    <button class="btn btn-ghost btn-sm" onclick="addGroupToMod('spec-mod-1')">+ Group</button>
+                    <button class="btn btn-danger btn-sm" onclick="this.closest('.spec-modification').remove();showToast('🗑️ Modification removed')">Remove</button>
+                  </div>
+                </div>
+
+                <div class="spec-groups" id="groups-spec-mod-1">
+
+                  <!-- Group: General information -->
+                  <div class="spec-group" id="spec-grp-1">
+                    <div class="spec-group-header">
+                      <div class="spec-drag-handle spec-drag-handle--sm">
+                        <svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="5" r="1.5" fill="currentColor"/><circle cx="15" cy="5" r="1.5" fill="currentColor"/><circle cx="9" cy="12" r="1.5" fill="currentColor"/><circle cx="15" cy="12" r="1.5" fill="currentColor"/><circle cx="9" cy="19" r="1.5" fill="currentColor"/><circle cx="15" cy="19" r="1.5" fill="currentColor"/></svg>
+                      </div>
+                      <input type="text" value="General information" class="spec-group-name-input" onfocus="this.style.borderBottomColor='var(--accent)'" onblur="this.style.borderBottomColor='var(--border2)'">
+                      <div class="actions" style="margin-left:auto">
+                        <button class="btn btn-ghost btn-sm" onclick="addSpecRow(this.closest('.spec-group'))">+ Add row</button>
+                        <button class="btn btn-danger btn-sm" onclick="this.closest('.spec-group').remove();showToast('🗑️ Group removed')">Remove</button>
+                      </div>
+                    </div>
+                    <div class="spec-rows">
+                      <div class="spec-row">
+                        <div class="spec-drag-handle spec-drag-handle--xs"><svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="1.2" fill="currentColor"/><circle cx="15" cy="8" r="1.2" fill="currentColor"/><circle cx="9" cy="16" r="1.2" fill="currentColor"/><circle cx="15" cy="16" r="1.2" fill="currentColor"/></svg></div>
+                        <input type="text" value="Country of origin" class="spec-key">
+                        <input type="text" value="Germany" class="spec-val">
+                        <button class="spec-row-remove" onclick="this.closest('.spec-row').remove();showToast('🗑️ Row removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+                      </div>
+                      <div class="spec-row">
+                        <div class="spec-drag-handle spec-drag-handle--xs"><svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="1.2" fill="currentColor"/><circle cx="15" cy="8" r="1.2" fill="currentColor"/><circle cx="9" cy="16" r="1.2" fill="currentColor"/><circle cx="15" cy="16" r="1.2" fill="currentColor"/></svg></div>
+                        <input type="text" value="Car class" class="spec-key">
+                        <input type="text" value="A" class="spec-val">
+                        <button class="spec-row-remove" onclick="this.closest('.spec-row').remove();showToast('🗑️ Row removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+                      </div>
+                      <div class="spec-row">
+                        <div class="spec-drag-handle spec-drag-handle--xs"><svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="1.2" fill="currentColor"/><circle cx="15" cy="8" r="1.2" fill="currentColor"/><circle cx="9" cy="16" r="1.2" fill="currentColor"/><circle cx="15" cy="16" r="1.2" fill="currentColor"/></svg></div>
+                        <input type="text" value="Number of doors" class="spec-key">
+                        <input type="text" value="4" class="spec-val">
+                        <button class="spec-row-remove" onclick="this.closest('.spec-row').remove();showToast('🗑️ Row removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+                      </div>
+                      <div class="spec-row">
+                        <div class="spec-drag-handle spec-drag-handle--xs"><svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="1.2" fill="currentColor"/><circle cx="15" cy="8" r="1.2" fill="currentColor"/><circle cx="9" cy="16" r="1.2" fill="currentColor"/><circle cx="15" cy="16" r="1.2" fill="currentColor"/></svg></div>
+                        <input type="text" value="Number of seats" class="spec-key">
+                        <input type="text" value="5" class="spec-val">
+                        <button class="spec-row-remove" onclick="this.closest('.spec-row').remove();showToast('🗑️ Row removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Group: Engine -->
+                  <div class="spec-group" id="spec-grp-2">
+                    <div class="spec-group-header">
+                      <div class="spec-drag-handle spec-drag-handle--sm"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="5" r="1.5" fill="currentColor"/><circle cx="15" cy="5" r="1.5" fill="currentColor"/><circle cx="9" cy="12" r="1.5" fill="currentColor"/><circle cx="15" cy="12" r="1.5" fill="currentColor"/><circle cx="9" cy="19" r="1.5" fill="currentColor"/><circle cx="15" cy="19" r="1.5" fill="currentColor"/></svg></div>
+                      <input type="text" value="Engine" class="spec-group-name-input" onfocus="this.style.borderBottomColor='var(--accent)'" onblur="this.style.borderBottomColor='var(--border2)'">
+                      <div class="actions" style="margin-left:auto">
+                        <button class="btn btn-ghost btn-sm" onclick="addSpecRow(this.closest('.spec-group'))">+ Add row</button>
+                        <button class="btn btn-danger btn-sm" onclick="this.closest('.spec-group').remove();showToast('🗑️ Group removed')">Remove</button>
+                      </div>
+                    </div>
+                    <div class="spec-rows">
+                      <div class="spec-row">
+                        <div class="spec-drag-handle spec-drag-handle--xs"><svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="1.2" fill="currentColor"/><circle cx="15" cy="8" r="1.2" fill="currentColor"/><circle cx="9" cy="16" r="1.2" fill="currentColor"/><circle cx="15" cy="16" r="1.2" fill="currentColor"/></svg></div>
+                        <input type="text" value="Engine type" class="spec-key">
+                        <input type="text" value="Gasoline" class="spec-val">
+                        <button class="spec-row-remove" onclick="this.closest('.spec-row').remove();showToast('🗑️ Row removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+                      </div>
+                      <div class="spec-row">
+                        <div class="spec-drag-handle spec-drag-handle--xs"><svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="1.2" fill="currentColor"/><circle cx="15" cy="8" r="1.2" fill="currentColor"/><circle cx="9" cy="16" r="1.2" fill="currentColor"/><circle cx="15" cy="16" r="1.2" fill="currentColor"/></svg></div>
+                        <input type="text" value="Maximum power" class="spec-key">
+                        <input type="text" value="510 hp • 375 kW • 6250 rpm" class="spec-val">
+                        <button class="spec-row-remove" onclick="this.closest('.spec-row').remove();showToast('🗑️ Row removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+                      </div>
+                      <div class="spec-row">
+                        <div class="spec-drag-handle spec-drag-handle--xs"><svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="1.2" fill="currentColor"/><circle cx="15" cy="8" r="1.2" fill="currentColor"/><circle cx="9" cy="16" r="1.2" fill="currentColor"/><circle cx="15" cy="16" r="1.2" fill="currentColor"/></svg></div>
+                        <input type="text" value="Engine capacity" class="spec-key">
+                        <input type="text" value="2993 cc" class="spec-val">
+                        <button class="spec-row-remove" onclick="this.closest('.spec-row').remove();showToast('🗑️ Row removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+                      </div>
+                      <div class="spec-row">
+                        <div class="spec-drag-handle spec-drag-handle--xs"><svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="1.2" fill="currentColor"/><circle cx="15" cy="8" r="1.2" fill="currentColor"/><circle cx="9" cy="16" r="1.2" fill="currentColor"/><circle cx="15" cy="16" r="1.2" fill="currentColor"/></svg></div>
+                        <input type="text" value="Type of supercharging" class="spec-key">
+                        <input type="text" value="Turbocharging" class="spec-val">
+                        <button class="spec-row-remove" onclick="this.closest('.spec-row').remove();showToast('🗑️ Row removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Group: Dimensions -->
+                  <div class="spec-group" id="spec-grp-3">
+                    <div class="spec-group-header">
+                      <div class="spec-drag-handle spec-drag-handle--sm"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="5" r="1.5" fill="currentColor"/><circle cx="15" cy="5" r="1.5" fill="currentColor"/><circle cx="9" cy="12" r="1.5" fill="currentColor"/><circle cx="15" cy="12" r="1.5" fill="currentColor"/><circle cx="9" cy="19" r="1.5" fill="currentColor"/><circle cx="15" cy="19" r="1.5" fill="currentColor"/></svg></div>
+                      <input type="text" value="Dimensions" class="spec-group-name-input" onfocus="this.style.borderBottomColor='var(--accent)'" onblur="this.style.borderBottomColor='var(--border2)'">
+                      <div class="actions" style="margin-left:auto">
+                        <button class="btn btn-ghost btn-sm" onclick="addSpecRow(this.closest('.spec-group'))">+ Add row</button>
+                        <button class="btn btn-danger btn-sm" onclick="this.closest('.spec-group').remove();showToast('🗑️ Group removed')">Remove</button>
+                      </div>
+                    </div>
+                    <div class="spec-rows">
+                      <div class="spec-row">
+                        <div class="spec-drag-handle spec-drag-handle--xs"><svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="1.2" fill="currentColor"/><circle cx="15" cy="8" r="1.2" fill="currentColor"/><circle cx="9" cy="16" r="1.2" fill="currentColor"/><circle cx="15" cy="16" r="1.2" fill="currentColor"/></svg></div>
+                        <input type="text" value="Length" class="spec-key">
+                        <input type="text" value="4794 mm" class="spec-val">
+                        <button class="spec-row-remove" onclick="this.closest('.spec-row').remove();showToast('🗑️ Row removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+                      </div>
+                      <div class="spec-row">
+                        <div class="spec-drag-handle spec-drag-handle--xs"><svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="1.2" fill="currentColor"/><circle cx="15" cy="8" r="1.2" fill="currentColor"/><circle cx="9" cy="16" r="1.2" fill="currentColor"/><circle cx="15" cy="16" r="1.2" fill="currentColor"/></svg></div>
+                        <input type="text" value="Width" class="spec-key">
+                        <input type="text" value="1887 mm" class="spec-val">
+                        <button class="spec-row-remove" onclick="this.closest('.spec-row').remove();showToast('🗑️ Row removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+                      </div>
+                      <div class="spec-row">
+                        <div class="spec-drag-handle spec-drag-handle--xs"><svg width="9" height="9" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="1.2" fill="currentColor"/><circle cx="15" cy="8" r="1.2" fill="currentColor"/><circle cx="9" cy="16" r="1.2" fill="currentColor"/><circle cx="15" cy="16" r="1.2" fill="currentColor"/></svg></div>
+                        <input type="text" value="Wheelbase" class="spec-key">
+                        <input type="text" value="2857 mm" class="spec-val">
+                        <button class="spec-row-remove" onclick="this.closest('.spec-row').remove();showToast('🗑️ Row removed')"><svg width="10" height="10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div><!-- /spec-groups -->
+              </div><!-- /spec-modification -->
+
+            </div><!-- /ge-specs-container -->
+          </div><!-- /specs section-card -->
+
+        </div><!-- /model-editor-main -->
+
+        <!-- RIGHT SIDEBAR -->
+        <div class="model-editor-sidebar">
+
+          <div class="section-card">
+            <div class="section-header" style="padding:14px 16px"><div class="section-title" style="font-size:13px">Publish</div></div>
+            <div style="padding:14px 16px;display:flex;flex-direction:column;gap:12px">
+              <div class="toggle-group">
+                <div class="toggle on" onclick="this.classList.toggle('on');showToast('👁️ Visibility updated')"></div>
+                <label>Visible on landing</label>
+              </div>
+              <div style="height:1px;background:var(--border)"></div>
+              <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="showToast('✅ Generation saved')">Save Generation</button>
+              <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="navBack()">Cancel</button>
+            </div>
+          </div>
+
+          <div class="section-card">
+            <div class="section-header" style="padding:14px 16px"><div class="section-title" style="font-size:13px">Info</div></div>
+            <div style="padding:14px 16px;display:flex;flex-direction:column;gap:8px">
+              <div style="display:flex;justify-content:space-between;font-size:12px">
+                <span style="color:var(--text-3)">Logbooks</span><span style="font-weight:600">147</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:12px">
+                <span style="color:var(--text-3)">Modifications</span><span style="font-weight:600">1</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:12px">
+                <span style="color:var(--text-3)">Last edited</span><span style="color:var(--text-3)">5h ago</span>
+              </div>
+              <div style="height:1px;background:var(--border);margin:4px 0"></div>
+              <button class="btn btn-danger btn-sm" style="width:100%;justify-content:center" onclick="showToast('🗑️ Generation deleted')">Delete Generation</button>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
 
@@ -962,6 +1264,41 @@
         <button class="btn btn-ghost" onclick="closeAllModals()">Cancel</button>
         <button class="btn btn-primary" id="media-confirm-btn" onclick="confirmMedia()" disabled style="opacity:.5;cursor:not-allowed">Choose</button>
       </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-import-specs" style="display:none;max-width:480px;width:480px">
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Import Specifications from Excel</div>
+        <div style="font-size:12px;color:var(--text-3);margin-top:2px">Upload a filled template to auto-populate specs</div>
+      </div>
+      <button class="modal-close" onclick="closeAllModals()">✕</button>
+    </div>
+    <div style="padding:20px;display:flex;flex-direction:column;gap:16px">
+      <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:14px;display:flex;align-items:center;gap:12px">
+        <div style="font-size:24px">📄</div>
+        <div style="flex:1">
+          <div style="font-size:13px;font-weight:600;color:var(--text)">Download template first</div>
+          <div style="font-size:12px;color:var(--text-3);margin-top:2px">Fill in your specs data, then upload the file below</div>
+        </div>
+        <button class="btn btn-ghost btn-sm" onclick="showToast('📥 specs-template.xlsx downloading...')">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Download
+        </button>
+      </div>
+      <div class="upload-zone" onclick="showToast('📁 File picker opened — select .xlsx')">
+        <div class="upload-icon">📊</div>
+        <div class="upload-text">Drop your filled Excel file here</div>
+        <div class="upload-hint">.xlsx · max 10MB</div>
+      </div>
+      <div style="font-size:12px;color:var(--text-3);background:var(--surface2);padding:10px 12px;border-radius:var(--radius-sm)">
+        ⚠️ Importing will overwrite all existing specs for this generation. This cannot be undone.
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost" onclick="closeAllModals()">Cancel</button>
+      <button class="btn btn-primary" onclick="closeAllModals();showToast('✅ Specs imported from Excel')">Import</button>
     </div>
   </div>
 
