@@ -350,3 +350,10 @@ body.is-light .theme-pill{transform:translateX(100%)}
 ::-webkit-scrollbar{width:5px;height:5px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:20px}
+
+/* ===== FIX: editor page scroll ===== */
+#v-gen-editor,
+#v-model-editor {
+  height: auto;
+  overflow: visible;
+}

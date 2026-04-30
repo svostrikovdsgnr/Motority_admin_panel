@@ -39,6 +39,7 @@ function openModelPage(modelName){
   const isNew=modelName==='new';
   setSubPage(isNew?'Add Model':modelName);
   document.getElementById('v-model-editor').classList.add('active');
+  document.getElementById('content').scrollTop = 0;
   const metaCard=document.getElementById('me-meta-card');
   if(isNew){
     document.getElementById('me-name').value='';
@@ -66,6 +67,7 @@ function openGenPage(genName, parentModel){
   const isNew=genName==='new';
   setSubPage(isNew?'Add Generation':genName);
   document.getElementById('v-gen-editor').classList.add('active');
+  document.getElementById('content').scrollTop = 0;
   document.getElementById('ge-name').value=isNew?'':genName;
   document.getElementById('ge-years').value=isNew?'':
     genName==='BMW M4 G82'?'2020 – Present':
