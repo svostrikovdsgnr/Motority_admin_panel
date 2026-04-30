@@ -24,36 +24,41 @@ input,textarea,select,.upload-zone,.toggle,.chip,.btn,.sb-item,.notify-item,.fon
 
 /* ── LAYOUT ── */
 body{
+body{
   font-family:'DM Sans',sans-serif;
   background:var(--bg);color:var(--text);
   height:100vh;
   display:flex;
-  overflow:hidden; /* sidebar stays fixed */
+  flex-direction:row; /* sidebar left, main right */
+  overflow:hidden;
 }
 #sidebar{
   width:var(--sidebar-w);min-width:var(--sidebar-w);height:100vh;
   background:var(--surface);border-right:1px solid var(--border);
   display:flex;flex-direction:column;
   position:fixed;left:0;top:0;z-index:100;
+  overflow:hidden;
 }
 #main{
   margin-left:var(--sidebar-w);
   flex:1;
-  display:flex;flex-direction:column;
+  display:flex;
+  flex-direction:column; /* topbar on top, content below */
+  height:100vh;         /* fill full viewport height */
   min-width:0;
-  min-height:0;
+  overflow:hidden;      /* children manage their own scroll */
 }
 #topbar{
-  height:var(--topbar-h);flex-shrink:0;
+  height:var(--topbar-h);
+  flex-shrink:0;        /* never compress topbar */
   background:var(--surface);border-bottom:1px solid var(--border);
   display:flex;align-items:center;padding:0 24px;gap:16px;
 }
-/* THE FIX: #content takes remaining height and scrolls */
 #content{
-  flex:1;
-  min-height:0;        /* critical for flex children to not overflow */
-  overflow-y:auto;
+  flex:1;               /* take all remaining height */
+  overflow-y:auto;      /* THIS is the scroll container */
   padding:24px;
+  /* no min-height:0 needed — flex:1 in a fixed-height flex parent already constrains it */
 }
 .view{display:none}
 .view.active{display:block}
@@ -266,11 +271,16 @@ select option{background:var(--surface2)}
 .model-editor-main{
   display:flex;
   flex-direction:column;
-  gap:16px;
+  gap:0;
   min-width:0;
 }
-/* Cards inside main have NO bottom margin — gap handles spacing */
-.model-editor-main > .section-card{margin-bottom:0}
+/* Explicit spacing between cards in editor — gap unreliable when display overridden */
+.model-editor-main > .section-card{
+  margin-bottom:16px;
+}
+.model-editor-main > .section-card:last-child{
+  margin-bottom:0;
+}
 /* RIGHT sidebar: flex column, gap between cards, NO sticky */
 .model-editor-sidebar{
   display:flex;
