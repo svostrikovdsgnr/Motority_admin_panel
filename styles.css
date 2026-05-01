@@ -47,7 +47,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .btn-icon{width:32px;height:32px;border-radius:var(--radius-sm);border:1px solid var(--border);background:transparent;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-2);transition:all .15s}
 .btn-icon:hover{background:var(--surface2);color:var(--text);border-color:var(--border2)}
 #content{flex:1;overflow-y:auto;padding:24px}
-.view{display:none}.view.active{display:block}
+.view{display:none}
+.view.active{display:block}
+/* editor views need block → doesn't break scroll */
+#v-model-editor.active,#v-gen-editor.active{display:block}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}
 .stat-label{font-size:12px;color:var(--text-3);font-weight:500;margin-bottom:8px}
@@ -312,17 +315,28 @@ body.is-light .theme-pill{transform:translateX(100%)}
   grid-template-columns:1fr 260px;
   gap:20px;
   align-items:start;
+  /* critical: let the grid take natural height so #content can scroll */
+  height:auto;
 }
-.model-editor-main{display:flex;flex-direction:column;gap:0}
+.model-editor-main{
+  display:flex;
+  flex-direction:column;
+  gap:16px; /* matches section-card spacing on all other pages */
+  min-width:0;
+}
+/* override section-card margin inside editor main — gap handles spacing */
+.model-editor-main .section-card{
+  margin-bottom:0;
+}
 .model-editor-sidebar{
-  display:flex;flex-direction:column;gap:0;
-  position:sticky;top:0;
-  /* ensure sidebar doesn't cause overflow */
-  max-height:calc(100vh - var(--topbar-h) - 48px);
-  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  /* NO sticky — it was preventing #content from scrolling */
 }
-.model-editor-sidebar .section-card{margin-bottom:12px}
-.model-editor-sidebar .section-card:last-child{margin-bottom:0}
+.model-editor-sidebar .section-card{
+  margin-bottom:0;
+}
 
 /* Gallery grid */
 .gallery-grid{
