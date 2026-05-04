@@ -351,6 +351,95 @@
             </div>
           </div>
 
+          <!-- SECOND SCREEN BLOCK -->
+          <div class="section-card">
+            <div class="section-header">
+              <div><div class="section-title">Second Screen</div><div class="section-sub">About, Facts &amp; Motority Stats block</div></div>
+              <button class="btn btn-primary btn-sm" onclick="showToast('✅ Second screen saved')">Save Changes</button>
+            </div>
+
+            <!-- About -->
+            <div style="padding:20px;border-bottom:1px solid var(--border)">
+              <div style="font-size:12px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">About <span style="font-weight:400;color:var(--text-3);font-size:11px;text-transform:none;letter-spacing:0">— pulled from Motority, editable</span></div>
+              <div class="form-group">
+                <label>Brand Description</label>
+                <textarea rows="5">BMW is a German multinational manufacturer of luxury vehicles and motorcycles headquartered in Munich, Bavaria, Germany. The corporation was founded in 1916 and has established itself as one of the most recognisable automotive brands in the world, known for precision engineering and performance-oriented vehicles.</textarea>
+              </div>
+            </div>
+
+            <!-- Facts -->
+            <div style="padding:20px;border-bottom:1px solid var(--border)">
+              <div style="font-size:12px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:12px">Facts <span style="font-weight:400;color:var(--text-3);font-size:11px;text-transform:none;letter-spacing:0">— pulled from Motority, editable</span></div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+                <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;display:flex;flex-direction:column;gap:8px">
+                  <div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em">Fact 1</div>
+                  <input type="text" placeholder="Fact name" value="Founded">
+                  <input type="text" placeholder="Fact value" value="1916">
+                </div>
+                <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;display:flex;flex-direction:column;gap:8px">
+                  <div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em">Fact 2</div>
+                  <input type="text" placeholder="Fact name" value="Headquarters">
+                  <input type="text" placeholder="Fact value" value="Munich, Germany">
+                </div>
+                <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;display:flex;flex-direction:column;gap:8px">
+                  <div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em">Fact 3</div>
+                  <input type="text" placeholder="Fact name" value="Models in lineup">
+                  <input type="text" placeholder="Fact value" value="47 models">
+                </div>
+                <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;display:flex;flex-direction:column;gap:8px">
+                  <div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em">Fact 4</div>
+                  <input type="text" placeholder="Fact name" value="Global employees">
+                  <input type="text" placeholder="Fact value" value="149,475">
+                </div>
+                <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;display:flex;flex-direction:column;gap:8px">
+                  <div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em">Fact 5</div>
+                  <input type="text" placeholder="Fact name" value="Annual production">
+                  <input type="text" placeholder="Fact value" value="2.5M vehicles">
+                </div>
+                <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px;display:flex;flex-direction:column;gap:8px">
+                  <div style="font-size:10px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em">Fact 6</div>
+                  <input type="text" placeholder="Fact name" value="Countries sold in">
+                  <input type="text" placeholder="Fact value" value="140+ countries">
+                </div>
+              </div>
+            </div>
+
+            <!-- Motority Stats — read only -->
+            <div style="padding:20px">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+                <div style="font-size:12px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em">Motority Stats</div>
+                <span style="font-size:11px;color:var(--text-3);background:var(--surface3);border:1px solid var(--border);border-radius:20px;padding:2px 8px">Read-only · auto-updated</span>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+                <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px">
+                  <div style="font-size:11px;color:var(--text-3);margin-bottom:4px">Total Logbooks</div>
+                  <div style="font-size:22px;font-weight:700;color:var(--text);font-family:'DM Mono',monospace">2,841</div>
+                </div>
+                <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px">
+                  <div style="font-size:11px;color:var(--text-3);margin-bottom:4px">Active Owners</div>
+                  <div style="font-size:22px;font-weight:700;color:var(--text);font-family:'DM Mono',monospace">1,203</div>
+                </div>
+                <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px">
+                  <div style="font-size:11px;color:var(--text-3);margin-bottom:4px">New This Month</div>
+                  <div style="font-size:22px;font-weight:700;color:var(--green);font-family:'DM Mono',monospace">+47</div>
+                </div>
+                <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px">
+                  <div style="font-size:11px;color:var(--text-3);margin-bottom:4px">Avg. Ownership</div>
+                  <div style="font-size:22px;font-weight:700;color:var(--text);font-family:'DM Mono',monospace">3.2 yr</div>
+                </div>
+                <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px">
+                  <div style="font-size:11px;color:var(--text-3);margin-bottom:4px">Top Model</div>
+                  <div style="font-size:15px;font-weight:700;color:var(--text);font-family:'DM Mono',monospace">BMW 3 Series</div>
+                </div>
+                <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px">
+                  <div style="font-size:11px;color:var(--text-3);margin-bottom:4px">Avg. Mileage</div>
+                  <div style="font-size:22px;font-weight:700;color:var(--text);font-family:'DM Mono',monospace">48k km</div>
+                </div>
+              </div>
+              <div style="margin-top:10px;font-size:11px;color:var(--text-3)">Stats are pulled live from Motority and cannot be edited here.</div>
+            </div>
+          </div>
+
           <div class="section-card">
             <div class="section-header">
               <div><div class="section-title">Filters Configuration</div><div class="section-sub">Visible filters on the models section</div></div>
@@ -454,11 +543,11 @@
           <table>
             <thead><tr><th>Model Name</th><th>Years</th><th>Generations</th><th>Logbooks</th><th>Actions</th></tr></thead>
             <tbody>
-              <tr style="cursor:pointer" onclick="openModelPage('BMW M4')"><td><div class="cell-name">BMW M4</div></td><td style="color:var(--text-3)">2014 – Present</td><td>3</td><td><span class="badge badge-green">284</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModelPage('BMW M4')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW M4 deleted')">Delete</button></div></td></tr>
-              <tr style="cursor:pointer" onclick="openModelPage('BMW M3')"><td><div class="cell-name">BMW M3</div></td><td style="color:var(--text-3)">1986 – Present</td><td>6</td><td><span class="badge badge-green">412</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModelPage('BMW M3')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW M3 deleted')">Delete</button></div></td></tr>
-              <tr style="cursor:pointer" onclick="openModelPage('BMW X5')"><td><div class="cell-name">BMW X5</div></td><td style="color:var(--text-3)">1999 – Present</td><td>4</td><td><span class="badge badge-green">634</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModelPage('BMW X5')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW X5 deleted')">Delete</button></div></td></tr>
-              <tr style="cursor:pointer" onclick="openModelPage('BMW 3 Series')"><td><div class="cell-name">BMW 3 Series</div></td><td style="color:var(--text-3)">1975 – Present</td><td>8</td><td><span class="badge badge-green">1,204</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModelPage('BMW 3 Series')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW 3 Series deleted')">Delete</button></div></td></tr>
-              <tr style="cursor:pointer" onclick="openModelPage('BMW iX')"><td><div class="cell-name">BMW iX</div></td><td style="color:var(--text-3)">2021 – Present</td><td>1</td><td><span class="badge badge-yellow">47</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModelPage('BMW iX')">Edit</button><button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ BMW iX deleted')">Delete</button></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelPage('BMW M4')"><td><div class="cell-name">BMW M4</div></td><td style="color:var(--text-3)">2014 – Present</td><td>3</td><td><span class="badge badge-green">284</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModelPage('BMW M4')">Edit</button><div class="toggle on" onclick="event.stopPropagation();this.classList.toggle('on');showToast('👁️ Visibility updated')" title="Toggle visibility"></div></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelPage('BMW M3')"><td><div class="cell-name">BMW M3</div></td><td style="color:var(--text-3)">1986 – Present</td><td>6</td><td><span class="badge badge-green">412</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModelPage('BMW M3')">Edit</button><div class="toggle on" onclick="event.stopPropagation();this.classList.toggle('on');showToast('👁️ Visibility updated')" title="Toggle visibility"></div></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelPage('BMW X5')"><td><div class="cell-name">BMW X5</div></td><td style="color:var(--text-3)">1999 – Present</td><td>4</td><td><span class="badge badge-green">634</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModelPage('BMW X5')">Edit</button><div class="toggle on" onclick="event.stopPropagation();this.classList.toggle('on');showToast('👁️ Visibility updated')" title="Toggle visibility"></div></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelPage('BMW 3 Series')"><td><div class="cell-name">BMW 3 Series</div></td><td style="color:var(--text-3)">1975 – Present</td><td>8</td><td><span class="badge badge-green">1,204</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModelPage('BMW 3 Series')">Edit</button><div class="toggle on" onclick="event.stopPropagation();this.classList.toggle('on');showToast('👁️ Visibility updated')" title="Toggle visibility"></div></div></td></tr>
+              <tr style="cursor:pointer" onclick="openModelPage('BMW iX')"><td><div class="cell-name">BMW iX</div></td><td style="color:var(--text-3)">2021 – Present</td><td>1</td><td><span class="badge badge-yellow">47</span></td><td><div class="actions"><button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openModelPage('BMW iX')">Edit</button><div class="toggle on" onclick="event.stopPropagation();this.classList.toggle('on');showToast('👁️ Visibility updated')" title="Toggle visibility"></div></div></td></tr>
             </tbody>
           </table>
         </div>
@@ -541,6 +630,20 @@
               <div class="form-group full">
                 <label>Description</label>
                 <textarea id="me-desc" rows="5" placeholder="Describe this model — its history, key features, generations overview..."></textarea>
+                <div style="font-size:11px;color:var(--text-3);margin-top:4px">Markdown supported</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Model Overview -->
+          <div class="section-card">
+            <div class="section-header">
+              <div><div class="section-title">Model Overview</div><div class="section-sub">Displayed in the overview section of the model page</div></div>
+            </div>
+            <div class="form-grid">
+              <div class="form-group full">
+                <label>Overview Text</label>
+                <textarea id="me-overview" rows="6" placeholder="Write a comprehensive overview of this model — its place in the lineup, what makes it special, key attributes and target audience..."></textarea>
                 <div style="font-size:11px;color:var(--text-3);margin-top:4px">Markdown supported</div>
               </div>
             </div>
@@ -694,7 +797,6 @@
                 <span style="color:var(--text-3)">Last edited</span><span style="color:var(--text-3)">2h ago</span>
               </div>
               <div style="height:1px;background:var(--border);margin:4px 0"></div>
-              <button class="btn btn-danger btn-sm" style="width:100%;justify-content:center" onclick="showToast('🗑️ Model deleted')">Delete Model</button>
             </div>
           </div>
 
@@ -739,6 +841,20 @@
               <div class="form-group full">
                 <label>Description</label>
                 <textarea id="ge-desc" rows="4" placeholder="Describe this generation — key changes, facelift details, performance specs overview..."></textarea>
+                <div style="font-size:11px;color:var(--text-3);margin-top:4px">Markdown supported</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Generation Overview -->
+          <div class="section-card">
+            <div class="section-header">
+              <div><div class="section-title">Generation Overview</div><div class="section-sub">Displayed in the overview section of the generation page</div></div>
+            </div>
+            <div class="form-grid">
+              <div class="form-group full">
+                <label>Overview Text</label>
+                <textarea id="ge-overview" rows="6" placeholder="Write a comprehensive overview of this generation — key engineering changes, performance updates, design evolution, notable variants..."></textarea>
                 <div style="font-size:11px;color:var(--text-3);margin-top:4px">Markdown supported</div>
               </div>
             </div>
@@ -996,7 +1112,6 @@
                 <span style="color:var(--text-3)">Last edited</span><span style="color:var(--text-3)">5h ago</span>
               </div>
               <div style="height:1px;background:var(--border);margin:4px 0"></div>
-              <button class="btn btn-danger btn-sm" style="width:100%;justify-content:center" onclick="showToast('🗑️ Generation deleted')">Delete Generation</button>
             </div>
           </div>
 
@@ -1031,6 +1146,66 @@
 
     <!-- STYLE -->
     <div class="view" id="v-style">
+      <!-- Logo & Favicon -->
+      <div class="section-card" style="margin-bottom:16px">
+        <div class="section-header">
+          <div><div class="section-title">Logo &amp; Favicon</div><div class="section-sub">Brand identity assets</div></div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('✅ Assets saved')">Save</button>
+        </div>
+
+        <!-- Brand Logo -->
+        <div style="padding:20px;border-bottom:1px solid var(--border)">
+          <div style="font-size:12px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Brand Logo</div>
+          <div style="font-size:12px;color:var(--text-3);margin-bottom:14px">Primary logo shown in the site header and on landing pages.</div>
+          <div class="hero-media-row">
+            <div class="upload-zone hero-upload" onclick="showToast('📁 File picker opened')">
+              <div class="upload-icon">🖼️</div>
+              <div class="upload-text">Drop logo or click to upload</div>
+              <div class="upload-hint">SVG preferred · PNG/WebP accepted · transparent background · max 2MB</div>
+            </div>
+            <div class="hero-media-or">or</div>
+            <button class="btn btn-ghost hero-media-pick" onclick="openModal('pick-media')">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              Choose from Media Library
+            </button>
+          </div>
+          <div class="hero-current-media" style="">
+            <div class="hero-current-thumb" style="background:#f1f5f9">🔵</div>
+            <div>
+              <div class="hero-current-name">bmw-logo.svg</div>
+              <div class="hero-current-meta">12 KB · SVG · Vector</div>
+            </div>
+            <button class="hero-current-remove" onclick="this.closest('.hero-current-media').style.display='none';showToast('🗑️ Logo removed')">
+              <svg width="12" height="12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+          </div>
+          <div style="margin-top:10px;font-size:11px;color:var(--text-3);background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px">
+            <strong style="color:var(--text-2)">Recommendations:</strong> Use SVG for best quality at all sizes. If using raster formats (PNG, WebP), provide at least 400×200 px at 2× resolution. Transparent background required.
+          </div>
+        </div>
+
+        <!-- Favicon -->
+        <div style="padding:20px">
+          <div style="font-size:12px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Favicon</div>
+          <div style="font-size:12px;color:var(--text-3);margin-bottom:14px">Shown in browser tabs and bookmarks.</div>
+          <div class="hero-media-row">
+            <div class="upload-zone hero-upload" onclick="showToast('📁 File picker opened')">
+              <div class="upload-icon">📌</div>
+              <div class="upload-text">Drop favicon or click to upload</div>
+              <div class="upload-hint">ICO · PNG · SVG · 32×32 or 64×64 px recommended · max 500 KB</div>
+            </div>
+            <div class="hero-media-or">or</div>
+            <button class="btn btn-ghost hero-media-pick" onclick="openModal('pick-media')">
+              <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+              Choose from Media Library
+            </button>
+          </div>
+          <div style="margin-top:10px;font-size:11px;color:var(--text-3);background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px">
+            <strong style="color:var(--text-2)">Recommendations:</strong> Use a square image — 32×32 px minimum, 64×64 px preferred for crisp rendering on high-DPI displays. ICO format ensures broadest browser compatibility; SVG favicons are supported in modern browsers. Keep the design simple and recognisable at small sizes.
+          </div>
+        </div>
+      </div>
+
       <div class="section-card" style="margin-bottom:16px">
         <div class="section-header">
           <div><div class="section-title">Brand Colors</div><div class="section-sub">Used across the landing page UI</div></div>

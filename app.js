@@ -167,7 +167,7 @@ function filterGenerations(model){
       <td><span class="badge ${g.badge}">${g.logbooks}</span></td>
       <td><div class="actions">
         <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();openGenPage('${g.name.replace(/'/g,"\\'")}','${model.replace(/'/g,"\\'")}')">Edit</button>
-        <button class="btn btn-danger btn-sm" onclick="event.stopPropagation();showToast('🗑️ ${g.name} deleted')">Delete</button>
+        <div class="toggle on" onclick="event.stopPropagation();this.classList.toggle('on');showToast('👁️ Visibility updated')" title="Toggle visibility"></div>
       </div></td>
     </tr>`).join('');
 }
